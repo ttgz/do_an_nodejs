@@ -74,6 +74,18 @@
     });
   });
 </script>
+<script>
+  const contactButton = document.getElementById('contactButton');
+    contactButton.addEventListener('click', () => {
+        const contact = document.getElementById('popup');
+        contact.classList.add('show');
+    });
+      const closeButton = document.getElementById('closeButton');
+      closeButton.addEventListener('click', () => {
+        const contact = document.getElementById('popup');
+        contact.classList.remove('show');
+      });
+</script>
 </body>
 
 </html>

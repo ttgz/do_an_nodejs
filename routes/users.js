@@ -8,7 +8,7 @@ const con = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "quan_ly_bai_viet"
+  database: "quan_li_bai_viet"
 });
 
 con.connect()
@@ -36,6 +36,16 @@ router.post('/dangki', (req, res) => {
   })
 }
 )
+
+router.post('/contact',(req,res)=>{
+  contact=req.body
+  console.log(req.body)
+
+  sql = `insert into lienhe(ten_lien_he,email,tieude,noi_dung) values('${contact.name}','${contact.email}','${contact.tieude}','${contact.message}') `
+    con.query(sql, (err, result) => {
+      res.redirect('/')
+    })
+})
 
 
 module.exports = router;
