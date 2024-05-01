@@ -19,6 +19,34 @@
 <script src="assets/js/html5shiv.min.js"></script>
 <script src="assets/js/respond.min.js"></script>
 <![endif]-->
+<style>
+  .popup {
+  display:none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  }
+  .popup.show {
+  display: block;
+  }
+
+  #closeButton {
+  float: right;
+  cursor: pointer;
+  }
+  .show{
+  display:block;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+</style>
 </head>
 
 <body>
@@ -33,12 +61,19 @@
           <div class="header_top">
             <div class="header_top_left">
               <ul class="top_nav">
-                <li><a href="">Trang chủ</a></li>
-                <li><a href="">Danh mục bài viết</a></li>
-                <li><a href="">Liên hệ</a></li>
-                <li>
-                  <span> <input type="text" name="timkiem" value=""> </span> <button style="margin-left:-5px"><i class="fas fa-search"></i></button>
-                </li>
+                <li><a href="#">Trang chủ</a></li>
+                <li><a href="#">Danh mục bài viết</a></li>
+                  <select id="categoryFilter">
+                    <option value="">Tất cả danh mục</option>
+                    <option value="">Đời sống</option>
+                    <option value="">Thể thao</option>
+                    <option value="">Khoa học</option>
+                  </select>
+                <li><a href="#" id="contactButton">Liên hệ</a></li>
+                <div class="search-container">
+                  <span style="text-align:end"> <input type="text" name="timkiem" value=""> </span>
+                  <button style="margin-left:-5px"><i class="fas fa-search"></i></button>
+                </div>
               </ul>
             </div>
           </div>
