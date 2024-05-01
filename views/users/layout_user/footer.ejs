@@ -1,43 +1,79 @@
 <footer id="footer">
-    <div class="footer_top">
-      <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-4">
-          <div class="footer_widget wow fadeInLeftBig">
-          </div>
+  <div class="footer_top">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="footer_widget wow fadeInLeftBig">
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
-          <div class="footer_widget wow fadeInDown">
-            <h2>Thông tin liên hệ</h2>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="footer_widget wow fadeInDown">
+          <h2>Thông tin liên hệ</h2>
+          <% if(locals.footer) {%>
             <ul class="tag_nav">
-              <li><a href="#"> Địa chỉ</a></li>
-              <li><a href="#"> email</a></li>
-              <li><a href="#"> facebook</a></li>
-              <li><a href="#"> youtube </a></li>
-              <li><a href="#"> Thông tin bản quyền</a></li>
+              <% for(dataFooter of footer) {%>
+              <li><a href=""> Địa chỉ: <%= dataFooter.dia_chi %> </a></li>
+              <li><a href=""> email: <%= dataFooter.email %> </a></li>
+              <li><a href="<%= dataFooter.facebook %>"> facebook</a></li>
+              <li><a href="<%= dataFooter.youtube %>"> youtube </a></li>
+              <li><a href=""> Thông tin bản quyền: <%= dataFooter.thong_tin_ban_quyen %></a></li>
+              <% } %>
             </ul>
-          </div>
+            <%}%>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
-          <div class="footer_widget wow fadeInRightBig">
-            <h2>Subcribe</h2>
-             <span> <input style="color:black" type="email" placeholder="email" value=""> <button style="color:black" type="submit">Đăng kí</button></span>
-          </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="footer_widget wow fadeInRightBig">
+          <h2>Subcribe</h2>
+          <form action="" method="POST" id="signupForm">
+              <span> 
+                <input style="color:black" name="emailDangKi" id="emailDangKi"type="email" placeholder="email" required value=""> 
+                <button style="color:black" type="submit">Đăng kí</button>
+              </span>
+          </form>
+          
         </div>
       </div>
     </div>
-    <div class="footer_bottom">
-      <p class="copyright">Copyright &copy; 2045 <a href="index.html">NewsFeed</a></p>
-      <p class="developer">Developed By Wpfreeware</p>
-    </div>
-  </footer>
+  </div>
+  <div class="footer_bottom">
+    <p class="copyright">Copyright &copy; 2045 <a href="">NewsFeed</a></p>
+    <p class="developer">Developed By Wpfreeware</p>
+  </div>
+</footer>
 </div>
-<script src="/javascripts/jquery.min.js"></script> 
-<script src="/javascripts/wow.min.js"></script> 
-<script src="/javascripts/bootstrap.min.js"></script> 
-<script src="/javascripts/slick.min.js"></script> 
-<script src="/javascripts/jquery.li-scroller.1.0.js"></script> 
-<script src="/javascripts/jquery.newsTicker.min.js"></script> 
-<script src="/javascripts/jquery.fancybox.pack.js"></script> 
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/wow.min.js"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+<script src="/javascripts/slick.min.js"></script>
+<script src="/javascripts/jquery.li-scroller.1.0.js"></script>
+<script src="/javascripts/jquery.newsTicker.min.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
 <script src="/javascripts/custom.js"></script>
+<script>
+  const signupForm = document.getElementById('signupForm');
+
+  signupForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const emailDangKi = document.getElementById('emailDangKi').value;
+
+    fetch('/dangki', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({emailDangKi})
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert('Đăng ký thành công!');
+      } else {
+        alert('Đăng ký thất bại!');
+      }
+    });
+  });
+</script>
 </body>
+
 </html>
