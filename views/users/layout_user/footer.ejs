@@ -11,11 +11,11 @@
           <% if(locals.footer) {%>
             <ul class="tag_nav">
               <% for(dataFooter of footer) {%>
-              <li><a href=""> Địa chỉ: <%= dataFooter.dia_chi %> </a></li>
-              <li><a href=""> email: <%= dataFooter.email %> </a></li>
-              <li><a href="<%= dataFooter.facebook %>"> facebook</a></li>
-              <li><a href="<%= dataFooter.youtube %>"> youtube </a></li>
-              <li><a href=""> Thông tin bản quyền: <%= dataFooter.thong_tin_ban_quyen %></a></li>
+              <li><a href=""> <i class="fas fa-map-marker-alt"></i> <%= dataFooter.dia_chi %> </a></li>
+              <li><a href="mailto:  <%= dataFooter.email %>"> <i class="fas fa-envelope"></i> <%= dataFooter.email %> </a></li>
+              <li><a href="<%= dataFooter.facebook %>"> <i class="fab fa-facebook"></i> Facebook</a></li>
+              <li><a href="<%= dataFooter.youtube %>"> <i class="fab fa-youtube"></i>Youtube </a></li>
+              <li><a href=""> <i class="fas fa-id-badge"></i> <%= dataFooter.thong_tin_ban_quyen %></a></li>
               <% } %>
             </ul>
             <%}%>
