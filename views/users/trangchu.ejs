@@ -1,3 +1,78 @@
 <%-include('layout_user/header.ejs') %>
-<%-include('layout_user/content.ejs') %>
+<section id="contentSection">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <div class="left_content">
+          <div class="single_post_content">    
+            <h2><span>Bài viết mới nhất</span></h2>
+            <div class="single_post_content_left">
+              <ul class="spost_nav">
+                <li>
+                    <% if(locals.moinhat){ %>
+                        <% for(baiviet of moinhat){ %>
+                  <div class="media wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;"> <a href="/chitietbaiviet/<%= baiviet.id%>" class="media-left"> <img alt="" src="<%= baiviet.hinh_anh %>"> </a>
+                        <div class="media-body"> <strong><a href="/chitietbaiviet/<%= baiviet.id%>" class="catg_title"> <%= baiviet.tieu_de %></a></strong> 
+                        <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 10%"> <%= baiviet.noi_dung %></p> 
+                    </div>
+                  </div>
+                  <% } %>
+                  <% } %>
+                </li>
+              </ul>
+            </div>
+            
+          </div>
+          <div class="single_post_content">    
+            <h2><span>Bài viết được xem nhiều nhất</span></h2>
+            <div class="single_post_content_left">
+              <ul class="spost_nav">
+                <li>
+                    <% if(locals.xemnhieunhat){ %>
+                        <% for(baiviet of xemnhieunhat){ %>
+                  <div class="media wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;"> <a href="/chitietbaiviet/<%= baiviet.id%>" class="media-left"> <img alt="" src="<%= baiviet.hinh_anh %>"> </a>
+                    <div class="media-body"> <strong><a href="/chitietbaiviet/<%= baiviet.id%>" class="catg_title"> <%= baiviet.tieu_de %></a> </strong>
+                        <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 10%"> <%= baiviet.noi_dung %></p> </div>
+                  </div>
+                  <% } %>
+                  <% } %>
+                </li>
+              </ul>
+            </div>
+            
+          </div>
+          <% if(locals.danhmuc) {%>
+            <% for(tendanhmuc of danhmuc){ %>
+          <div class="single_post_content">       
+            <h2><span> <%= tendanhmuc.ten_danh_muc %></span></h2>
+            <div class="single_post_content_left">
+              <ul class="spost_nav">
+                <li>
+                <% if(locals.danhSachBaiViet) {%>
+                 <% for (baiviet of danhSachBaiViet){%>
+                    <% if(baiviet.ten_danh_muc === tendanhmuc.ten_danh_muc) {%>
+                  <div class="media wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;"> <a href="/chitietbaiviet/<%= baiviet.id%>" class="media-left"> <img alt="" src="<%= baiviet.hinh_anh %>"> </a>
+                    <div class="media-body"> 
+                        <strong><a href="/chitietbaiviet/<%= baiviet.id%>" class="catg_title"> <%= baiviet.tieu_de %> </a> </strong>      
+                        <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width:12%" class="catg_title"> <%= baiviet.noi_dung %></p> 
+                    </div>
+                    
+                  </div>
+                  <% }%>
+                  <% } %>
+                  <% } %>
+                </li>
+              </ul>
+            </div>
+           
+          </div>
+          <% } %>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </section>
 <%-include('layout_user/footer.ejs') %>
+
+
+   
+    
