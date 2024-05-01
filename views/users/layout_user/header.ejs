@@ -63,17 +63,20 @@
               <ul class="top_nav">
                 <li><a href="#">Trang chủ</a></li>
                 <li><a href="#">Danh mục bài viết</a></li>
+                <li><a href="#" id="contactButton">Liên hệ</a></li>
                   <select id="categoryFilter">
                     <option value="">Tất cả danh mục</option>
-                    <option value="">Đời sống</option>
-                    <option value="">Thể thao</option>
-                    <option value="">Khoa học</option>
+                    <% if(locals.danhmuc){ %>
+                      <% for(tendanhmuc of danhmuc){%>
+                      <option value="<%= tendanhmuc.ten_danh_muc %>"><%= tendanhmuc.ten_danh_muc %></option>
+                      <% } %>
+                    <% } %>
                   </select>
-                <li><a href="#" id="contactButton">Liên hệ</a></li>
-                <div class="search-container">
+                
+                <span class="search-container">
                   <span style="text-align:end"> <input type="text" name="timkiem" value=""> </span>
                   <button style="margin-left:-5px"><i class="fas fa-search"></i></button>
-                </div>
+                </span>
               </ul>
             </div>
           </div>
