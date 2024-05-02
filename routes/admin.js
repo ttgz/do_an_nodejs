@@ -13,9 +13,6 @@ conn.connect();
 router.get('/admin', function (req, res, next) {
   res.render('admin/layouts', { content: 'main.ejs' });
 });
-router.get('/admin&managercontact', function (req, res, next) {
-  res.render('admin/layouts', { content: 'manager_contact.ejs' });
-});
 router.get('/admin&managerpost', function (req, res, next) {
   conn.query("select baiviet.* , ten_danh_muc from baiviet inner join danhmucbaiviet on baiviet.danh_muc = danhmucbaiviet.id", (err, result) => {
     res.render('admin/layouts', { content: 'manager_post.ejs', baiviet: result});
@@ -79,7 +76,7 @@ router.get('/thembaiviet',(req,res)=>{
 
 //thêm bài viết
 router.post('/capnhatbaivietmoi',(req,res)=>{
-  conn.query (`select id from danhmucbaiviet where ten_danh_muc='${req.bodydanhmuc}'`)
+  conn.query (`select id from danhmucbaiviet where ten_danh_muc='${req.body.chude}'`)
   console.log(id)
  let sql= `insert into baiviet()`
   conn.query(sql,(err,rs)=>{

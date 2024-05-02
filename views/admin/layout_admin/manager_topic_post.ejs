@@ -1,11 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>day la trang danh muc bai viet</h1>
-</body>
-</html>
+
+<div class="btn-group py-2">
+    <a href="admin&quanlylienhe" class="btn btn-secondary">Quản Lý liên hệ</a>
+  </div>
+  <h3>Chờ duyệt</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Tên liên hệ</th>
+        <th scope="col">Email</th>
+        <th scope="col">Số điện thoại</th>
+        <th scope="col">Tiêu đề</th>
+        <th scope="col">Nội dung</th>
+        <th scope="col">Trạng thái duyệt</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% if(locals.dslh){ %>
+            <% for(lienhe of dslh) {%>
+                <tr>
+                        <th scope="row"><%= lienhe.id %></th>
+                        <td><%= lienhe.ten_lien_he %></td>
+                        <td><%= lienhe.email  %></td>
+                        <td><%= lienhe.so_dien_thoai  %></td>
+                        <td><%= lienhe.tieu_de  %></td>
+                        <td><%= lienhe.noi_dung %></td>
+                        <td><%= lienhe.trang_thai_duyet %></td>
+                        <td class="text-center"><a href="/duyet/<%= lienhe.id %>" class="btn btn-primary">Duyệt</a></td>
+                  </tr>
+            <% } %>
+        <% } %>
+   </tbody>
+  </table>
+  <br>
+  <h3>Đã duyệt</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Tên liên hệ</th>
+        <th scope="col">Email</th>
+        <th scope="col">Số điện thoại</th>
+        <th scope="col">Tiêu đề</th>
+        <th scope="col">Nội dung</th>
+        <th scope="col">Trạng thái duyệt</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% { %>
+            <%  {%>
+                <tr>
+                        <th scope="row"><%= lienhe.id %></th>
+                        <td><%= lienhe.ten_lien_he %></td>
+                        <td><%= lienhe.email  %></td>
+                        <td><%= lienhe.so_dien_thoai  %></td>
+                        <td><%= lienhe.tieu_de  %></td>
+                        <td><%= lienhe.noi_dung %></td>
+                        <td><%= lienhe.trang_thai_duyet %></td>
+                  </tr>
+            <% } %>
+        <% } %>
+   </tbody>
+  </table>
