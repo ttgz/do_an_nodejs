@@ -19,6 +19,9 @@ router.get('/admin&managerpost', function (req, res, next) {
     res.render('admin/layouts', { content: 'manager_post.ejs', baiviet: result });
   });
 });
+router.get('/chinhsuathongtinbaiviet/admin&managerpost', function (req, res, next) {
+  res.redirect("/admin&managerpost");
+});
 // quản lý danh mục bài viêt
 router.get('/admin&managertopicpost', function (req, res, next) {
   conn.query("select * from danhmucbaiviet", (err, result) => {
@@ -41,19 +44,24 @@ router.get('/admin&edittopic/admin&managertopicpost', function (req, res, next) 
   res.redirect("/admin&managertopicpost");
 });
 // truy xuất danh mục bài viết theo id
-router.get('/admin&edittopic/:id', function (req, res, next) {
+router.get('/admin&edittopic/:id/', function (req, res, next) {
   let id = req.params.id;
   conn.query(`Select * from danhmucbaiviet where id = ${id}`, (err, result) => {
-    res.render('admin/layouts', { content: 'edit_danhmuc_bai_viet.ejs', danhmuc : result[0] });
+    res.render('admin/layouts', { content: 'edit_danhmuc_bai_viet.ejs', danhmuc : result[0] ,ketqua : ''});
   });
 });
 // cập nhật danh mục bài viết theo id
 router.post('/editdanhmuc', function (req, res, next) {
   let id = req.body.id;
   let ten_danh_muc = req.body.ten_danh_muc;
+  let ketqua = req.body.ketqua;
+  console.log(ketqua);
+  if(ketqua == true){
   conn.query(`UPDATE danhmucbaiviet SET ten_danh_muc = N'${ten_danh_muc}' where id = ${id}`, (err) => {
     res.redirect("/admin&managertopicpost");
   });
+  }
+  else res.redirect("/admin&managertopicpost");
 });
 // xóa danh mục bài viết theo id
 router.get('/admin&deltopic/:id', function (req, res, next) {

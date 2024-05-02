@@ -17,7 +17,7 @@
             <% for(ketqua of danhmuc) {%>
                 <tr>
                     <th scope="row"><%= ketqua.id %></th>
-                    <td><%= ketqua.ten_danh_muc %></td>
+                    <td><%- ketqua.ten_danh_muc %></td>
                     <td class="text-center"><a href="admin&edittopic/<%= ketqua.id  %>" class="btn btn-primary ">Sửa</a></td>
                     <td class="text-center"><a href="admin&deltopic/<%= ketqua.id  %>" class="btn btn-danger">Xóa</a></td>
                   </tr>
