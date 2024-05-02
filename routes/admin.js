@@ -54,5 +54,21 @@ router.get('/duyet/:id',(req,res)=>{
       res.redirect('/admin&quanlylienhe')
     })
 })
+//giao diện chỉnh sửa bài viết và bài viết cần sửa
+router.get('/chinhsuathongtinbaiviet/:id',(req,res)=>{
+  let id = req.params.id
+  conn.query(`select * from baiviet where id = ${id}`,(err,rs)=>{
+    res.render('admin/layouts',{content: 'chinhsuathongtinbaiviet.ejs', baiviet:rs[0]})
+  })
+})
 
+//cập nhật bài viết
+router.post('/capnhatbaiviet',(req,res)=>{
+  console.log(req.body)
+  let id= req.body.id
+  let sql =`update baiviet set tieu_de='${req.body.tieude}', noi_dung='${req.body.noidung}', tac_gia='${req.body.tacgia}',ngay_dang='${req.body.ngaydang}', trang_thai='${req.body.trangthai}', hinh_anh='${req.body.hinhanh}'where id=${id}`
+  conn.query(sql,(err,rs)=>{
+    res.redirect('/admin&managerpost')
+  })
+})
 module.exports = router;
