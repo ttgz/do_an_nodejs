@@ -72,7 +72,7 @@ router.post('/contact',(req,res)=>{
   contact=req.body
   console.log(req.body)
 
-  sql = `insert into lienhe(ten_lien_he,email,tieude,noi_dung) values('${contact.name}','${contact.email}','${contact.tieude}','${contact.message}') `
+  sql = `insert into lienhe(ten_lien_he,email,tieu_de,noi_dung) values('${contact.name}','${contact.email}','${contact.tieude}','${contact.message}') `
     con.query(sql, (err, result) => {
       res.redirect('/')
     })
