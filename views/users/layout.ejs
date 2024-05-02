@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> <% if(locals.title) {%>
+                <%= title %>
+         <% } %>
+ </title>
+<%- include('layout_user/header.ejs') %>
+<%- include(content) %>
+<%- include('layout_user/footer.ejs') %>
+
+
