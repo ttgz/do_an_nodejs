@@ -12,9 +12,9 @@ const con = mysql.createConnection({
 });
 
 con.connect()
+let footer
 //xử lý req vào trang chủ
 router.get('/', function (req, res, next) {
-  let sql = 'select * from thongtinlienhe'
   let listBaiVietMoiNhat, listBaiVietXemNhieuNhat 
 
   //3 bài viết mới nhất
@@ -36,17 +36,29 @@ router.get('/', function (req, res, next) {
   
 });
 
-//xử lý tăng lượt xem của bài viết
+//xử lý tăng lượt xem của bài viết và xem chi tiết bài viết và bình luận
 router.get('/chitietbaiviet/:id',(req,res)=>{
   let id = req.params.id
-  let sql = `select * from baiviet where id = ${id}`
+  let sql = `select baiviet.id,tieu_de,noi_dung,tac_gia, DATE_FORMAT(ngay_dang, '%d-%m-%Y') AS ngay_dang, hinh_anh, ten_danh_muc from baiviet inner join danhmucbaiviet on baiviet.danh_muc = danhmucbaiviet.id where baiviet.id = ${id}`
   con.query(sql,(err,result)=>{
       let luotXem = result[0].luot_xem + 1
       sql = `update baiviet set luot_xem = ${luotXem} where id = ${id}`
       con.query(sql,(err,resultUpdate)=>{
-        res.redirect('/')
+        con.query('select * from thongtinlienhe',(err,footer)=>{
+          con.query(`select email, noi_dung from binhluan where bai_viet = ${id}`,(err,binhluan)=>{
+            res.render('users/layout',{content:'chitietbaiviet.ejs',title: result[0].tieu_de, noidung: result[0],footer:footer, dsbl:binhluan})
+          })         
+        })      
       })
   })
+})
+//Thêm bình luận
+router.post('/thembinhluan',(req,res)=>{
+    con.query(`insert into binhluan(email,noi_dung,bai_viet) values ('${req.body.email}',N'${req.body.binhluan}',${req.body.id})`,(err,rs)=>{
+      console.log(req.body)
+      res.redirect(`/chitietbaiviet/${req.body.id}`)
+    })
+    
 })
 // xử lý req người dùng đăng kí
 router.post('/dangki', (req, res) => {
