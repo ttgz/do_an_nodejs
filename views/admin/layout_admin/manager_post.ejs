@@ -1,6 +1,6 @@
 
 <div class="btn-group py-2">
-    <a href="admin&managerpost" class="btn btn-secondary">Quản Lý</a>
+    <a href="admin&managerpost" class="btn btn-secondary">Quản Lý bài viết</a>
     <a href="#" class="btn btn-success">Thêm</a>
   </div>
   <table class="table table-bordered">
@@ -28,7 +28,7 @@
                     <td><%= ketqua.ngay_dang  %></td>
                     <td><%= ketqua.ten_danh_muc  %></td>
                     <td><%= ketqua.trang_thai %></td>
-                    <td class="text-center"><a href="#" class="btn btn-primary ">Sửa</a></td>
+                    <td class="text-center"><a href="/chinhsuathongtinbaiviet/<%= ketqua.id %>" class="btn btn-primary ">Sửa</a></td>
                     <td class="text-center"><a href="#" class="btn btn-danger">Hiển Thị</a></td>
                   </tr>
             <% } %>
