@@ -30,8 +30,13 @@ router.get('/admin&managertopicpost', function (req, res, next) {
 router.get('/admin&quanlylienhe',(req,res)=>{
   res.render('admin/layouts',{content: 'quanlylienhe.ejs'});
 });
+
 router.get('/admin&quanlynewletter',(req,res)=>{
-  res.render('admin/layouts',{content: 'quanlynewletter.ejs'});
+  let sql="select * from dangky"
+  conn.query(sql,(err,rs)=>{
+    console.log(rs)
+    res.render('admin/layouts',{content:'quanlynewletter.ejs',dsdk:rs});
+  })
 });
 
 

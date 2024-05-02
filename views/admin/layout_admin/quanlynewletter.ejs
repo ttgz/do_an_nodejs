@@ -1,1 +1,25 @@
-<h1>Đây là trang quản lý newletter</h1>
+<div class="btn-group py-2">
+    <a href="admin&quanlynewletter" class="btn btn-secondary">Các email đã đăng ký</a>
+</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">stt</th>
+            <th scope="col">email</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if(locals.dsdk) { %>
+            <% for (dangky of dsdk) {%>
+                <tr>
+                    <th scope="row">
+                        <%= dangky.id %>
+                    </th>
+                    <td>
+                        <%= dangky.email %>
+                    </td>
+                </tr>
+            <% } %>
+        <% } %>
+    </tbody>
+</table>
