@@ -13,6 +13,7 @@ conn.connect();
 router.get('/admin', function (req, res, next) {
   res.render('admin/layouts', { content: 'main.ejs' });
 });
+//quản lý bài viết
 router.get('/admin&managerpost', function (req, res, next) {
   conn.query("select baiviet.* , ten_danh_muc from baiviet inner join danhmucbaiviet on baiviet.danh_muc = danhmucbaiviet.id", (err, result) => {
     res.render('admin/layouts', { content: 'manager_post.ejs', baiviet: result });
@@ -61,7 +62,7 @@ router.get('/admin&deltopic/:id', function (req, res, next) {
     res.redirect("/admin&managertopicpost");
   });
 });
-//quản lý lien he
+//quản lý lien he 
 router.get('/admin&quanlylienhe', (req, res) => {
   let sql = "select * from lienhe where trang_thai_duyet='chờ duyệt'"
   conn.query(sql, (err, rs) => {
