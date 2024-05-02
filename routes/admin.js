@@ -26,9 +26,16 @@ router.get('/admin&managertopicpost', function (req, res, next) {
   res.render('admin/layouts', { content: 'manager_topic_post.ejs' });
 });
 
-//quản lý bài viết
+//quản lý lien he
 router.get('/admin&quanlylienhe',(req,res)=>{
-  res.render('admin/layouts',{content: 'quanlylienhe.ejs'});
+  let sql="select * from lienhe where trang_thai_duyet='chờ duyệt'"
+  conn.query(sql,(err,rs)=>{
+    conn.query("select * from lienhe where trang_thai_duyet='đã duyệt'",(err,resultdaduyet)=>{
+      res.render('admin/layouts',{content: 'quanlylienhe.ejs',dslh:rs,dslhdd:resultdaduyet});
+      console.log(rs,resultdaduyet)
+    })
+   
+  })
 });
 
 router.get('/admin&quanlynewletter',(req,res)=>{
@@ -39,6 +46,13 @@ router.get('/admin&quanlynewletter',(req,res)=>{
   })
 });
 
-
+//duyệt liên hệ
+router.get('/duyet/:id',(req,res)=>{
+    let id = req.params.id
+    let sql=`update lienhe set trang_thai_duyet=N'đã duyệt'where id=${id}`
+    conn.query(sql,(err,rs)=>{
+      res.redirect('/admin&quanlylienhe')
+    })
+})
 
 module.exports = router;
