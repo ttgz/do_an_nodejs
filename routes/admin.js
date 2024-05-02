@@ -24,10 +24,6 @@ router.get('/admin&managerpost', function (req, res, next) {
 });
 router.get('/admin&managertopicpost', function (req, res, next) {
   res.render('admin/layouts', { content: 'manager_topic_post.ejs' });
-<<<<<<< HEAD
-
-=======
->>>>>>> 05ba242c0df7148559fafb3044c2e8b290ace2f8
 });
 
 //quản lý bài viết
