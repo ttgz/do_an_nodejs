@@ -1,11 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>trang posst</h1>
-</body>
-</html>
+
+<div class="btn-group py-2">
+    <a href="admin&managerpost" class="btn btn-secondary">Quản Lý</a>
+    <a href="#" class="btn btn-success">Thêm</a>
+  </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Image</th>
+        <th scope="col">Tiêu đề</th>
+        <th scope="col">Tác giả</th>
+        <th scope="col">Ngày đăng</th>
+        <th scope="col">Tên chủ đề</th>
+        <th scope="col">Trạng thái</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% if(locals.baiviet){ %>
+            <% for(ketqua of baiviet) {%>
+                <tr>
+                    <th scope="row"><%= ketqua.id %></th>
+                    <td><img src="<%= ketqua.hinh_anh  %>" width="100px"></td>
+                    <td><%= ketqua.tieu_de %></td>
+                    <td><%= ketqua.tac_gia  %></td>
+                    <td><%= ketqua.ngay_dang  %></td>
+                    <td><%= ketqua.ten_danh_muc  %></td>
+                    <td><%= ketqua.trang_thai %></td>
+                    <td class="text-center"><a href="#" class="btn btn-primary ">Sửa</a></td>
+                    <td class="text-center"><a href="#" class="btn btn-danger">Hiển Thị</a></td>
+                  </tr>
+            <% } %>
+        <% } %>
+   </tbody>
+  </table>

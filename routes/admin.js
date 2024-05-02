@@ -10,16 +10,19 @@ const conn = mysql.createConnection({
 });
 conn.connect();
 /* GET home page. */
-router.get('/admin', function(req, res, next) {
+router.get('/admin', function (req, res, next) {
   res.render('admin/layouts', { content: 'main.ejs' });
 });
-router.get('/admin&managercontact', function(req, res, next) {
+router.get('/admin&managercontact', function (req, res, next) {
   res.render('admin/layouts', { content: 'manager_contact.ejs' });
 });
-router.get('/admin&managerpost', function(req, res, next) {
-  res.render('admin/layouts', { content: 'manager_post.ejs' });
+router.get('/admin&managerpost', function (req, res, next) {
+  conn.query("select baiviet.* , ten_danh_muc from baiviet inner join danhmucbaiviet on baiviet.danh_muc = danhmucbaiviet.id", (err, result) => {
+    res.render('admin/layouts', { content: 'manager_post.ejs', baiviet: result});
+  });
+
 });
-router.get('/admin&managertopicpost', function(req, res, next) {
+router.get('/admin&managertopicpost', function (req, res, next) {
   res.render('admin/layouts', { content: 'manager_topic_post.ejs' });
 });
 
