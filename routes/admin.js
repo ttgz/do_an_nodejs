@@ -1,19 +1,30 @@
 var express = require('express');
 var router = express.Router();
-
+var mysql = require('mysql');
+var app = require('../app');
+const conn = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "quan_ly_bai_viet"
+});
+conn.connect();
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/admin', function(req, res, next) {
   res.render('admin/layouts', { content: 'main.ejs' });
 });
-router.get('/manageruser', function(req, res, next) {
-  res.render('admin/layouts', { content: 'manager_user.ejs' });
+router.get('/admin&managercontact', function(req, res, next) {
+  res.render('admin/layouts', { content: 'manager_contact.ejs' });
 });
-router.get('/managerpost', function(req, res, next) {
+router.get('/admin&managerpost', function(req, res, next) {
   res.render('admin/layouts', { content: 'manager_post.ejs' });
 });
-router.get('/managertopicpost', function(req, res, next) {
+router.get('/admin&managertopicpost', function(req, res, next) {
   res.render('admin/layouts', { content: 'manager_topic_post.ejs' });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 05ba242c0df7148559fafb3044c2e8b290ace2f8
 });
 
 //quản lý bài viết
