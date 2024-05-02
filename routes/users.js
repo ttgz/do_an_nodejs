@@ -26,7 +26,7 @@ router.get('/', function (req, res, next) {
       con.query('select ten_danh_muc from danhmucbaiviet',(err,resultDanhMucBaiViet)=>{
           con.query('select ten_danh_muc, baiviet.* from danhmucbaiviet inner join baiviet on danhmucbaiviet.id = baiviet.danh_muc',(err,resultBaiViet)=>{
             con.query('select * from thongtinlienhe',(err,resultTTLH)=>{
-              res.render('users/trangchu',{moinhat: listBaiVietMoiNhat, xemnhieunhat: listBaiVietXemNhieuNhat, danhmuc: resultDanhMucBaiViet, danhSachBaiViet:resultBaiViet,footer:resultTTLH})
+              res.render('users/layout',{moinhat: listBaiVietMoiNhat, xemnhieunhat: listBaiVietXemNhieuNhat, danhmuc: resultDanhMucBaiViet, danhSachBaiViet:resultBaiViet,footer:resultTTLH,content:'trangchu.ejs',title: 'Trang chủ'})
             })
           })
       })
@@ -72,7 +72,7 @@ router.post('/contact',(req,res)=>{
   contact=req.body
   console.log(req.body)
 
-  sql = `insert into lienhe(ten_lien_he,email,tieude,noi_dung) values('${contact.name}','${contact.email}','${contact.tieude}','${contact.message}') `
+  sql = `insert into lienhe(ten_lien_he,email,tieu_de,noi_dung) values('${contact.name}','${contact.email}','${contact.tieude}','${contact.message}') `
     con.query(sql, (err, result) => {
       res.redirect('/')
     })

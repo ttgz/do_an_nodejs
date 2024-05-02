@@ -1,0 +1,29 @@
+
+<div class="btn-group py-2">
+    
+  </div>
+  <form action="/capnhatbaiviet" method = "POST">
+    <% if(locals.baiviet) { %>
+    <input type="hidden" name="id" value="<%= baiviet.id %>">
+    <div>
+        <label for="">Hình ảnh></label><img src="<%= baiviet.hinh_anh %>"><input name="hinhanh" type="file" >
+        
+    </div>
+    <div>
+        <label for="">Tiêu đề</label><input type="text" class="form-control" name="tieude" value=" <%= baiviet.tieu_de %> ">
+    </div>
+    <div>
+        <label for="">Nội dung</label><input type="text" class="form-control" name="noidung" value=" <%= baiviet.noi_dung %> ">
+    </div>
+    <div>
+        <label for="">Tác giả</label><input type="text" class="form-control" name="tacgia" value=" <%= baiviet.tac_gia %> ">
+    </div>
+    <div>
+        <label for="">Ngày đăng</label><input type="text" class="form-control" name="ngaydang" value=" <%= baiviet.ngay_dang %> ">
+    </div>
+    <div>
+        <label for="">Trạng thái</label><input type="text" class="form-control" name="trangthai" value=" <%= baiviet.trang_thai %> ">
+    </div>
+    <button type="submit">Cập nhật</button>
+    <% } %>
+  </form>
