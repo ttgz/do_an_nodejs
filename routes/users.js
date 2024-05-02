@@ -26,7 +26,7 @@ router.get('/', function (req, res, next) {
       con.query('select ten_danh_muc from danhmucbaiviet',(err,resultDanhMucBaiViet)=>{
           con.query('select ten_danh_muc, baiviet.* from danhmucbaiviet inner join baiviet on danhmucbaiviet.id = baiviet.danh_muc',(err,resultBaiViet)=>{
             con.query('select * from thongtinlienhe',(err,resultTTLH)=>{
-              res.render('users/trangchu',{moinhat: listBaiVietMoiNhat, xemnhieunhat: listBaiVietXemNhieuNhat, danhmuc: resultDanhMucBaiViet, danhSachBaiViet:resultBaiViet,footer:resultTTLH})
+              res.render('users/layout',{moinhat: listBaiVietMoiNhat, xemnhieunhat: listBaiVietXemNhieuNhat, danhmuc: resultDanhMucBaiViet, danhSachBaiViet:resultBaiViet,footer:resultTTLH,content:'trangchu.ejs',title: 'Trang chủ'})
             })
           })
       })
