@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <html>
+  <style>
+    #email{
+      margin-left: 25px;
+    }
+    #tieude{
+      margin-left: 15px;
+    }
+    #message{
+      width: 100%;
+    }
+  </style>
 <head>
   <title> <% if(locals.title) {%>
                 <%= title %>
@@ -27,7 +38,7 @@
       <textarea id="message" name="message" rows="5" required></textarea>
     </div>
     <div class="button-group">
-      <button type="submit">Gửi</button>
+      <button type="submit" style="padding: 3px 30px; background-color: blue; color: white; border-radius: 5px;">Gửi</button>
       <button type="button" id="closeButton">Đóng</button>
     </div>
   </div>

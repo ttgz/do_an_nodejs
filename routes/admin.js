@@ -54,7 +54,7 @@ router.get('/admin&edittopic/:id/', function (req, res, next) {
 router.post('/editdanhmuc', function (req, res, next) {
   let id = req.body.id;
   let ten_danh_muc = req.body.ten_danh_muc;
-  let ketqua = req.body.ketqua;
+  let ketqua = req.params.ketqua;
   console.log(ketqua);
   if(ketqua == true){
   conn.query(`UPDATE danhmucbaiviet SET ten_danh_muc = N'${ten_danh_muc}' where id = ${id}`, (err) => {
