@@ -71,4 +71,20 @@ router.post('/capnhatbaiviet',(req,res)=>{
     res.redirect('/admin&managerpost')
   })
 })
+
+//giao diện thêm bài viết
+router.get('/thembaiviet',(req,res)=>{
+    res.render('admin/layouts',{content: 'thembaiviet.ejs'})
+  })
+
+//thêm bài viết
+router.post('/capnhatbaivietmoi',(req,res)=>{
+  conn.query (`select id from danhmucbaiviet where ten_danh_muc='${req.bodydanhmuc}'`)
+  console.log(id)
+ let sql= `insert into baiviet()`
+  conn.query(sql,(err,rs)=>{
+    res.redirect('/admin&managerpost')
+  })
+})
+
 module.exports = router;
