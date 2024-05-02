@@ -13,6 +13,13 @@ router.get('/managerpost', function(req, res, next) {
 });
 router.get('/managertopicpost', function(req, res, next) {
   res.render('admin/layouts', { content: 'manager_topic_post.ejs' });
->>>>>>> hoang
+
 });
+
+//quản lý bài viết
+router.get('/quanlylienhe',(req,res)=>{
+  res.render('admin/layouts',{content: 'quanlylienhe.ejs'});
+});
+
+
 module.exports = router;
