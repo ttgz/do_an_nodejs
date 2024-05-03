@@ -108,5 +108,18 @@ router.post('/contact',(req,res)=>{
     })
 })
 
+// nút tìm kiế)m
+router.get('/timkiem', (req, res) => {
+  let link=req.query.keywords
+  console.log(link)
+   let sql = `SELECT * FROM baiviet inner join danhmucbaiviet on baiviet.danh_muc=danhmucbaiviet.id  WHERE baiviet.tieu_de LIKE '%${link}%'  `
+  con.query(sql, (err, result) => {
+    con.query('select * from thongtinlienhe',(err,footer)=>{
+      con.query('select * from danhmucbaiviet',(err,dmbv)=>{
+        res.render('users/layout', { content: 'danhsachbaiviet.ejs',dsbv:result,footer:footer,danhmuc:dmbv})
+      })
 
+    })
+   })
+})
 module.exports = router;
