@@ -39,7 +39,7 @@ router.get('/', function (req, res, next) {
 //xử lý tăng lượt xem của bài viết và xem chi tiết bài viết và bình luận và bài viết liên quan
 router.get('/chitietbaiviet/:id',(req,res)=>{
   let id = req.params.id
-  let sql = `select baiviet.id,tieu_de,noi_dung,tac_gia, DATE_FORMAT(ngay_dang, '%d-%m-%Y') AS ngay_dang, hinh_anh, ten_danh_muc from baiviet inner join danhmucbaiviet on baiviet.danh_muc = danhmucbaiviet.id where baiviet.id = ${id}`
+  let sql = `select baiviet.id,tieu_de,noi_dung,tac_gia, DATE_FORMAT(ngay_dang, '%d-%m-%Y') AS ngay_dang, hinh_anh, ten_danh_muc,luot_xem from baiviet inner join danhmucbaiviet on baiviet.danh_muc = danhmucbaiviet.id where baiviet.id = ${id}`
   con.query(sql,(err,result)=>{
       let luotXem = result[0].luot_xem + 1
       sql = `update baiviet set luot_xem = ${luotXem} where id = ${id}`
@@ -108,11 +108,11 @@ router.post('/contact',(req,res)=>{
     })
 })
 
-// nút tìm kiế)m
+// nút tìm kiếm
 router.get('/timkiem', (req, res) => {
   let link=req.query.keywords
   console.log(link)
-   let sql = `SELECT * FROM baiviet inner join danhmucbaiviet on baiviet.danh_muc=danhmucbaiviet.id  WHERE baiviet.tieu_de LIKE '%${link}%'  `
+   let sql = `SELECT baiviet.id, tieu_de, noi_dung, hinh_anh FROM baiviet inner join danhmucbaiviet on baiviet.danh_muc=danhmucbaiviet.id  WHERE baiviet.tieu_de LIKE '%${link}%'  `
   con.query(sql, (err, result) => {
     con.query('select * from thongtinlienhe',(err,footer)=>{
       con.query('select * from danhmucbaiviet',(err,dmbv)=>{

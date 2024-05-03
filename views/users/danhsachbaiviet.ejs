@@ -14,8 +14,8 @@
                 <% if(locals.dsbv) {%>
                     <% for (baiviet of dsbv){ %>
                 <li>
-                  <div class="media wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;"> <a href=" " class="media-left"> <img alt="" src="<%= baiviet.hinh_anh %>"> </a>
-                        <div class="media-body"> <strong><a href="" class="catg_title"> <%= baiviet.tieu_de %> </a></strong> 
+                  <div class="media wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;"> <a href="/chitietbaiviet/<%= baiviet.id %>" class="media-left"> <img alt="" src="<%= baiviet.hinh_anh %>"> </a>
+                        <div class="media-body"> <strong><a href="/chitietbaiviet/<%= baiviet.id %>" class="catg_title"> <%= baiviet.tieu_de %> </a></strong> 
                         <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 10%"> <%= baiviet.noi_dung %> </p> 
                     </div>
                   </div>
