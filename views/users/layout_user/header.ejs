@@ -78,7 +78,7 @@
   }
 
   a {
-    color: rgb(227, 218, 218);
+    color: black;
   }
 </style>
 </head>
@@ -116,8 +116,8 @@
                   <option value="">Tất cả danh mục</option>
                   <% if(locals.danhmuc){ %>
                     <% for(tendanhmuc of danhmuc){%>
-                      <option value="<%= tendanhmuc.ten_danh_muc %>">
-                        <%= tendanhmuc.ten_danh_muc %>
+                      <option value="<%- tendanhmuc.ten_danh_muc %>">
+                        <%- tendanhmuc.ten_danh_muc %>
                       </option>
                       <% } %>
                         <% } %>

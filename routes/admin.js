@@ -27,9 +27,14 @@ router.get('/chinhsuathongtinbaiviet/admin&managerpost', function (req, res, nex
 });
 // quản lý danh mục bài viêt
 router.get('/admin&managertopicpost', function (req, res, next) {
+<<<<<<< HEAD
+  res.render('admin/layouts', { content: 'manager_topic_post.ejs' });
+
+=======
   conn.query("select * from danhmucbaiviet", (err, result) => {
     res.render('admin/layouts', { content: 'manager_topic_post.ejs', danhmuc : result });
   });
+>>>>>>> 1a0e5babc3ecb2214d9663ef48787e5192cda21a
 });
 // Xuất giao diện thêm danh mục bài viết
 router.get('/admin&add&danhmuc', function (req, res, next) {
@@ -57,7 +62,7 @@ router.get('/admin&edittopic/:id/', function (req, res, next) {
 router.post('/editdanhmuc', function (req, res, next) {
   let id = req.body.id;
   let ten_danh_muc = req.body.ten_danh_muc;
-  let ketqua = req.body.ketqua;
+  let ketqua = req.params.ketqua;
   console.log(ketqua);
   if(ketqua == true){
   conn.query(`UPDATE danhmucbaiviet SET ten_danh_muc = N'${ten_danh_muc}' where id = ${id}`, (err) => {
