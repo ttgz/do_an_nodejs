@@ -19,11 +19,33 @@ router.get('/admin', function (req, res, next) {
   res.render('admin/layouts', { content: 'main.ejs' });
 });
 
-router.get('/signout.php', function (req, res, next) {
+// sign out
+router.get('/admin&signout', function (req, res, next) {
   res.redirect("/");
 });
-//quản lý bài viết
+// fix nguoi dung bam loan xa
+router.get('/admin&edittopic/admin&managerpost', function (req, res, next) {
+  res.redirect("/admin&managerpost");
+});
+router.get('/admin&edittopic/admin&quanlylienhe', function (req, res, next) {
+  res.redirect("/admin&quanlylienhe");
+});
+router.get('/admin&edittopic/admin&quanlynewletter', function (req, res, next) {
+  res.redirect("/admin&quanlynewletter");
+});
+router.get('/chinhsuathongtinbaiviet/admin&managertopicpost', function (req, res, next) {
+  res.redirect("/admin&managertopicpost");
+});
+router.get('/chinhsuathongtinbaiviet/admin&quanlylienhe', function (req, res, next) {
+  res.redirect("/admin&quanlylienhe");
+});
+router.get('/chinhsuathongtinbaiviet/admin&quanlynewletter', function (req, res, next) {
+  res.redirect("/admin&quanlynewletter");
+});
 
+
+
+//quản lý bài viết
 router.get('/admin&managerpost', function (req, res, next) {
   conn.query("select baiviet.* , ten_danh_muc from baiviet inner join danhmucbaiviet on baiviet.danh_muc = danhmucbaiviet.id", (err, result) => {
     res.render('admin/layouts', { content: 'manager_post.ejs', baiviet: result });
