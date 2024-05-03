@@ -8,66 +8,69 @@
             </div>
         </div>
         <div class="item_info">
-            <p class="name_item_detail">  <%= noidung.tieu_de %> </p>
-            <p class="prict_item"> Tác giả: <%= noidung.tac_gia %></p>
-            <p class="prict_item"><em> Ngày đăng: <%= noidung.ngay_dang %></em>  </p>          
-            <p class="prict_item"> <%= noidung.noi_dung %> </p>          
+            <p class="name_item_detail">
+                <%= noidung.tieu_de %>
+            </p>
+            <p class="prict_item"> Tác giả: <%= noidung.tac_gia %>
+            </p>
+            <p class="prict_item"><em> Ngày đăng: <%= noidung.ngay_dang %></em> </p>
+            <p class="prict_item">
+                <%= noidung.noi_dung %>
+            </p>
             </p>
         </div>
+        <% } %>
+            <div class="container-comment">
+                <div class="form-container">
+                    <h2>Bình luận</h2>
+                    <form action="/thembinhluan" method="POST">
+                        <% if(locals.noidung) {%>
+                            <input type="hidden" name="id" value="<%=noidung.id%>">
+                            <% } %>
+                                <label class="form-label">Email:</label>
+                                <input type="text" class="form-input" name="email" required>
+                                <label class="form-label">Bình luận:</label>
+                                <textarea class="form-input" name="binhluan" rows="5" required></textarea>
+                                <button type="submit" class="form-button">Gửi bình luận</button>
+                    </form>
+                </div>
+                <div class="form-container-scd">
+                    <h2>Bình luận về bài viết</h2>
+                    <form action="">
+                        <% if(locals.dsbl) {%>
+                            <% for(binhluan of dsbl){ %>
+                                <p>
+                                    <span>
+                                        <%= binhluan.email %>:
+                                    </span>
+                                    <span>
+                                        <%=binhluan.noi_dung%>
+                                    </span>
+                                </p>
+                                <% } %>
+                                    <% } %>
+                    </form>
+                </div>
+
+            </div>
+
+    </div>
+
+
+    <div class="product">
+        <h2> <span class="name_product">Bài viết tương tự</span> </h2>
+        <div style=" display: flex;justify-content: space-around;align-items: center;">
+            <% if(locals.bvlq){ %>
+                <% for (baiviet of bvlq){ %>
+                    <div class="item">
+                        <a href="" class="media-left"> <img class="mw-100" src=" <%= baiviet.hinh_anh %>" alt=""></a>
+                        <p class="name_item"> <a href="">
+                                <%= baiviet.tieu_de %>
+                            </a></p>
+                        <!-- <p class="prict_item" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width:50%"> <a href=""> <%= baiviet.noi_dung %></a></p> -->
+                    </div>
+        
+        <% } %>
             <% } %>
-         <div class="container-comment">
-            <div class="form-container">
-            <h2>Bình luận</h2>
-            <form action="/thembinhluan" method="POST">
-                <% if(locals.noidung) {%>
-                    <input type="hidden" name="id" value="<%= noidung.id %>">
-                <% } %>
-              <label class="form-label">Email:</label>
-              <input type="text" class="form-input" name="email" required>
-              <label class="form-label">Bình luận:</label>
-              <textarea class="form-input" name="binhluan" rows="5" required></textarea>
-              <button type="submit" class="form-button">Gửi bình luận</button>
-            </form>
         </div>
-        <div  class="form-container-scd">
-            <h2>Bình luận về bài viết</h2>
-            <form action="">
-                <% if(locals.dsbl) {%>
-                    <% for(binhluan of dsbl){ %>
-                    <p>
-                        <span> <%= binhluan.email %>: </span>
-                        <span> <%=binhluan.noi_dung%></span>
-                    </p>                     
-                <% } %>
-                <% } %>
-            </form>
-        </div>
-       
-         </div>
-         
     </div>
-
-
- <div class="product">
-    <h2> <span class="name_product">Bài viết tương tự</span> </h2>
-    <div class="item">
-        <a href=""> <img class="mw-100" src="" alt=""></a>
-        <p class="name_item"> <a href=""> Laptop Asus Vivobook 15x A1503ZA</a></p>
-        <p class="prict_item"> <a href="">21.490.000₫</a></p>
-    </div>
-    <div class="item">
-        <a href=""> <img class="mw-100" src="" alt=""></a>
-        <p class="name_item"> <a href=""> Laptop Asus Expertbook B5302CEA</a></p>
-        <p class="prict_item"> <a href="">17.990.000₫ </a></p>
-    </div>
-    <div class="item">
-        <a href=""> <img class="mw-100" src="" alt=""></a>
-        <p class="name_item"> <a href=""> Laptop Asus Zenbook UM5401QA</a></p>
-        <p class="prict_item"> <a href="">18.490.000₫ </a></p>
-    </div>
-    <div class="item">
-        <a href=""> <img class="mw-100" src="" alt=""></a>
-        <p class="name_item"> <a href=""> Laptop Asus Vivobook Pro N7401ZE</a></p>
-        <p class="prict_item"> <a href="">33.990.000₫ </a></p>
-    </div>
- </div>
