@@ -75,7 +75,7 @@
    text-align: center;
  }
 .item_pic>.pic_top>img{
-   width: 50%;
+    width: 100%;
    height: 50%;
 }
  .item_info {

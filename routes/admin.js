@@ -24,14 +24,14 @@ router.get('/chinhsuathongtinbaiviet/admin&managerpost', function (req, res, nex
 });
 // quản lý danh mục bài viêt
 router.get('/admin&managertopicpost', function (req, res, next) {
-<<<<<<< HEAD
+
   res.render('admin/layouts', { content: 'manager_topic_post.ejs' });
 
-=======
+
   conn.query("select * from danhmucbaiviet", (err, result) => {
     res.render('admin/layouts', { content: 'manager_topic_post.ejs', danhmuc : result });
   });
->>>>>>> 1a0e5babc3ecb2214d9663ef48787e5192cda21a
+
 });
 // Xuất giao diện thêm danh mục bài viết
 router.get('/admin&add&danhmuc', function (req, res, next) {

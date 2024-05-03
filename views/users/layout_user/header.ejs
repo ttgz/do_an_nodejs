@@ -100,11 +100,13 @@
  -->
                 <li>
                   <div class="dropdown">
-                    <a href="#">Danh muc</a>
+                    <a href="#">Danh mục bài viết</a>
                     <div class="dropdown-content">
-                      <a href="#">Đời sống</a>
-                      <a href="#">Khoa học</a>
-                      <a href="#">Thể thảo</a>
+                      <% if(locals.danhmuc) {%>
+                        <% for(tendanhmuc of danhmuc){%>
+                          <a href="/danhsachbaiviet/<%= tendanhmuc.id %>"> <%= tendanhmuc.ten_danh_muc %> </a>
+                      <% } %>
+                      <% } %>
                     </div>
                   </div>
                 </li>
