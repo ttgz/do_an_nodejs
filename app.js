@@ -33,7 +33,7 @@ app.use((err, req, res, next) => {
   if (err.status === 404) {
     res.status(404).send('Trang bạn truy cập không tồn tại.');
   } else {
-    next(err);
+    next(err);  
   }
 });
 // error handler
