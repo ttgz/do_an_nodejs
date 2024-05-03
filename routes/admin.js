@@ -19,7 +19,9 @@ router.get('/admin', function (req, res, next) {
   res.render('admin/layouts', { content: 'main.ejs' });
 });
 
-
+router.get('/signout.php', function (req, res, next) {
+  res.redirect("/");
+});
 //quản lý bài viết
 
 router.get('/admin&managerpost', function (req, res, next) {
