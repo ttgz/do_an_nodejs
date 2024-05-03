@@ -116,7 +116,13 @@ router.get('/timkiem', (req, res) => {
   con.query(sql, (err, result) => {
     con.query('select * from thongtinlienhe',(err,footer)=>{
       con.query('select * from danhmucbaiviet',(err,dmbv)=>{
+        if(result.length>0){
+          console.log(result)
         res.render('users/layout', { content: 'danhsachbaiviet.ejs',dsbv:result,footer:footer,danhmuc:dmbv})
+        }
+        else{
+          res.render('users/layout', { content: 'danhsachbaiviet.ejs',khongcobaiviet:'Không tìm thấy bài viết liên quan',footer:footer,danhmuc:dmbv})
+        }
       })
 
     })
