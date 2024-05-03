@@ -1,0 +1,30 @@
+<section id="contentSection" style="margin-top:10px">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <div class="left_content">
+          <div class="single_post_content">
+            <% if(locals.tendanhmuc) {%>
+            <h2><span> <%= tendanhmuc %></span></h2>
+            <% } %>
+            <% if(locals.khongcobaiviet){%>
+              <h2 style="color:black; background:white"> <%=khongcobaiviet%> </h2>
+              <%}%>
+            <div class="single_post_content_left">
+              <ul class="spost_nav">
+                <% if(locals.dsbv) {%>
+                    <% for (baiviet of dsbv){ %>
+                <li>
+                  <div class="media wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;"> <a href="/chitietbaiviet/<%= baiviet.id %>" class="media-left"> <img alt="" src="<%= baiviet.hinh_anh %>"> </a>
+                        <div class="media-body"> <strong><a href="/chitietbaiviet/<%= baiviet.id %>" class="catg_title"> <%= baiviet.tieu_de %> </a></strong> 
+                        <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 10%"> <%= baiviet.noi_dung %> </p> 
+                    </div>
+                  </div>
+                </li>
+                <% } %>
+                <% } %>
+              </ul>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>

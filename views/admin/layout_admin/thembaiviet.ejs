@@ -1,0 +1,41 @@
+
+<div class="btn-group py-2">
+    
+</div>
+<form action="/capnhatbaivietmoi" method = "POST">
+
+ 
+    <div class="input-group mb-3">
+        <input type="hidden" name="id" value="<%= baiviet.id %>">
+        <span class="input-group-text" id="basic-addon1">Hình ảnh</span>
+        <img src="<%= baiviet.hinh_anh %>"><input name="hinhanh" type="file" >
+      </div>
+    
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Tiêu đề</span>
+        <input type="text" class="form-control" name="tieude" id="tieu_de" aria-label="Username" value="<%= baiviet.tieu_de %>" >
+      </div>
+    
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Nội dung</span>
+        <textarea class="form-control" name="noidung" id="content" ><%= baiviet.noi_dung %></textarea>
+      </div>
+    
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Tác giả</span>
+        <input type="text" class="form-control" name="tacgia" id="tac_gia" aria-label="Username" value="<%= baiviet.tac_gia %>">
+      </div>
+    
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Ngày đăng</span>
+        <input type="text" class="form-control" name="ngaydang" id="ngaydang" aria-label="Username" value="<%= baiviet.ngay_dang %>">
+      </div>
+      <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Trạng thái</span>
+          <input type="text" class="form-control" name="trangthai" id="trangthai" aria-label="Username" value="<%= baiviet.trang_thai %>">
+        </div>
+      <div class="mb-3 " style="text-align:center">
+        <button type="submit" name="sbm" class="btn btn-primary px-5 py-3 " >Cập nhật</button>
+      </div>
+
+</form>
