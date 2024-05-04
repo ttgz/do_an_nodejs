@@ -27,14 +27,12 @@ router.get('/chinhsuathongtinbaiviet/admin&managerpost', function (req, res, nex
 });
 // quản lý danh mục bài viêt
 router.get('/admin&managertopicpost', function (req, res, next) {
-<<<<<<< HEAD
   res.render('admin/layouts', { content: 'manager_topic_post.ejs' });
 
-=======
   conn.query("select * from danhmucbaiviet", (err, result) => {
     res.render('admin/layouts', { content: 'manager_topic_post.ejs', danhmuc : result });
   });
->>>>>>> 1a0e5babc3ecb2214d9663ef48787e5192cda21a
+
 });
 // Xuất giao diện thêm danh mục bài viết
 router.get('/admin&add&danhmuc', function (req, res, next) {
@@ -121,22 +119,24 @@ router.post('/capnhatbaiviet', (req, res) => {
   let sql = `update baiviet set tieu_de='${req.body.tieude}', noi_dung='${req.body.noidung}', tac_gia='${req.body.tacgia}',ngay_dang='${req.body.ngaydang}', trang_thai='${req.body.trangthai}', hinh_anh="/images/"'${req.body.hinhanh}'where id=${id}`;
   conn.query(sql, (err, rs) => {
     res.redirect('/admin&managerpost')
-  })
-})
+  });
+});
 
 //giao diện thêm bài viết
-router.get('/thembaiviet',(req,res)=>{
-    res.render('admin/layouts',{content: 'thembaiviet.ejs'})
-  })
+router.get('/admin&addbaiviet', function (req, res, next) {
+  res.render('admin/layouts', { content: 'thembaiviet.ejs' });
+});
 
 //thêm bài viết
 router.post('/capnhatbaivietmoi',(req,res)=>{
-  let id = (`select id from danhmucbaiviet where ten_danh_muc=N'${req.body.chude}'`)
-  console.log(id)
-  let sql= `insert into baiviet(tieu_de, noi_dung, tac_gia, ngay_dang, trang_thai, hinh_anh, danh_muc) values ('${req.body.tieude}', '${req.body.noidung}','${req.body.tacgia}', '${req.body.ngaydang}', '${req.body.trangthai}', '${req.body.hinhanh}', '${id}')`;
+  let iddanhmuc = (`select id from danhmucbaiviet where ten_danh_muc =N'${req.body.chude}'`)
+  conn.query(iddanhmuc,(err,iddm)=>{
+    console.log(iddanhmuc)
+  let sql= `insert into baiviet(tieu_de, noi_dung, tac_gia, ngay_dang, trang_thai, hinh_anh, danh_muc) values ('${req.body.tieude}', '${req.body.noidung}','${req.body.tacgia}', '${req.body.ngaydang}', '${req.body.trangthai}', "/images/"'${req.body.hinhanh}', '${iddanhmuc}')`;
   conn.query(sql,(err,rs)=>{
     res.redirect('/admin&managerpost')
-  })
+  });
 })
+});
 
 module.exports = router;

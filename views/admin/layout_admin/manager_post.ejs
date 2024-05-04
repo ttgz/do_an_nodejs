@@ -1,7 +1,7 @@
 
 <div class="btn-group py-2">
     <a href="admin&managerpost" class="btn btn-secondary">Quản Lý bài viết</a>
-    <a href="/thembaiviet" class="btn btn-success">Thêm</a>
+    <a href="admin&addbaiviet" class="btn btn-success">Thêm</a>
   </div>
   <table class="table table-bordered">
     <thead>
@@ -19,7 +19,7 @@
     </thead>
     <tbody>
         <% if(locals.baiviet){ %>
-            <% for(ketqua of baiviet) {%>
+            <% for(ketqua of baiviet) {%>   
                 <tr>
                     <th scope="row"><%= ketqua.id %></th>
                     <td><img src="<%= ketqua.hinh_anh  %>" width="100px"></td>
