@@ -80,6 +80,13 @@ router.get('/searchsl', (req, res) => {
     });
   });
 });
+
+// trang danh mục bài viết
+router.get('/admin&managertopicpost', function (req, res, next) {
+  conn.query("select * from danhmucbaiviet",(err, result) =>{
+    res.render('admin/layouts', { content: 'manager_topic_post.ejs', danhmuc: result });
+  });
+});
 // Xuất giao diện thêm danh mục bài viết
 router.get('/admin&add&danhmuc', function (req, res, next) {
     res.render('admin/layouts', { content: 'add_danhmuc_bai_viet.ejs' });
