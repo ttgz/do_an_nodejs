@@ -48,16 +48,36 @@ router.get('/chinhsuathongtinbaiviet/admin&quanlynewletter', function (req, res,
 //quản lý bài viết
 router.get('/admin&managerpost', function (req, res, next) {
   conn.query("select baiviet.* , ten_danh_muc from baiviet inner join danhmucbaiviet on baiviet.danh_muc = danhmucbaiviet.id", (err, result) => {
-    res.render('admin/layouts', { content: 'manager_post.ejs', baiviet: result });
+    conn.query("select * from danhmucbaiviet",(err, danhmuc) =>{
+      res.render('admin/layouts', { content: 'manager_post.ejs', baiviet: result , danhmuc: danhmuc});
+    });
   });
 });
-router.get('/chinhsuathongtinbaiviet/admin&managerpost', function (req, res, next) {
-  res.redirect("/admin&managerpost");
+// chức năng search keywords
+router.get('/search', (req, res) => {
+  var keywords = req.query.keywords;
+  console.log(keywords);
+  let sql = `select baiviet.* , ten_danh_muc from baiviet inner join danhmucbaiviet on baiviet.danh_muc = danhmucbaiviet.id where baiviet.tieu_de like '%${keywords}%' `+ `or baiviet.tac_gia like '%${keywords}%'` + `or baiviet.ngay_dang like '%${keywords}%'`;
+  conn.query(sql, (err, result) =>{
+    conn.query("select * from danhmucbaiviet",(err, danhmuc) =>{
+      if(result.length > 0){
+        res.render('admin/layouts', { content: 'manager_post.ejs', baiviet: result, danhmuc: danhmuc });
+      }
+      else{
+        res.render('admin/layouts', { content: 'manager_post.ejs', baiviet: result ,err : 'Yêu cầu không tìm thấy',danhmuc: danhmuc });
+      }
+    });
+  });
 });
-// quản lý danh mục bài viêt
-router.get('/admin&managertopicpost', function (req, res, next) {
-  conn.query("select * from danhmucbaiviet", (err, result) => {
-    res.render('admin/layouts', { content: 'manager_topic_post.ejs', danhmuc : result });
+// chức năng search selectoption
+router.get('/searchsl', (req, res) => {
+  var option = req.query.selectedOption;
+  console.log(option);
+  let sql = `select baiviet.*, ten_danh_muc from baiviet inner join danhmucbaiviet on baiviet.danh_muc = danhmucbaiviet.id where danhmucbaiviet.ten_danh_muc like '%${option}%'`;
+  conn.query(sql,(err , result) => {
+    conn.query("select * from danhmucbaiviet", (err, danhmuc) =>{
+      res.render('admin/layouts', {content : 'manager_post.ejs', baiviet: result, danhmuc: danhmuc, selected: result.ten_danh_muc});
+    });
   });
 });
 // Xuất giao diện thêm danh mục bài viết

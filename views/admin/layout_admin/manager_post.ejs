@@ -1,24 +1,56 @@
 
-<div class="btn-group py-2">
+<div class="btn-group py-2 w-100">
+  <div class="input-group flex-nowrap">
     <a href="admin&managerpost" class="btn btn-secondary">Quản Lý bài viết</a>
     <a href="/thembaiviet" class="btn btn-success">Thêm</a>
   </div>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Image</th>
-        <th scope="col">Tiêu đề</th>
-        <th scope="col">Tác giả</th>
-        <th scope="col">Ngày đăng</th>
-        <th scope="col">Tên chủ đề</th>
-        <th scope="col">Trạng thái</th>
-        <th scope="col">Edit</th>
-        <th scope="col">Status</th>
-      </tr>
-    </thead>
-    <tbody>
-        <% if(locals.baiviet){ %>
+  <div class="input-group flex-nowrap"> 
+    <form action="/search" method="GET">
+        <div  class="input-group flex-nowrap">
+          <input type="text" class="form-control" name="keywords" placeholder="Tìm kiếm">
+          <button class="input-group-text " ><i class="fas fa-search" style="font-size: 20px;"></i></button>
+      </div>
+    </form>
+  </div>
+ <div class="input-group flex-nowrap">
+  <select class="form-select" aria-label="Default select example" id="mySelect">
+    <option >Tất cả</option>
+    <% if(locals.danhmuc){ %>
+      <% for( tendanhmuc of danhmuc) {%>
+        <option value="<%- tendanhmuc.ten_danh_muc  %>"><%- tendanhmuc.ten_danh_muc  %></option>
+      <% } %>
+    <% } %>
+  </select>
+  <script>
+    document.getElementById('mySelect').addEventListener('change', function() {
+    window.location.href = newUrl ='searchsl?selectedOption=' + encodeURIComponent(this.value);
+  });
+  </script>
+ </div>
+</div>
+
+  
+        <% if(locals.err) {%>
+          <tr>
+            <h1><%= err  %></h1>
+          </tr>
+        <% }else { %>
+          <% if(locals.baiviet){ %>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Tiêu đề</th>
+                  <th scope="col">Tác giả</th>
+                  <th scope="col">Ngày đăng</th>
+                  <th scope="col">Tên chủ đề</th>
+                  <th scope="col">Trạng thái</th>
+                  <th scope="col">Edit</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
             <% for(ketqua of baiviet) {%>
                 <tr>
                     <th scope="row"><%= ketqua.id %></th>
@@ -26,12 +58,14 @@
                     <td><%= ketqua.tieu_de %></td>
                     <td><%= ketqua.tac_gia  %></td>
                     <td><%= ketqua.ngay_dang  %></td>
-                    <td><%= ketqua.ten_danh_muc  %></td>
+                    <td><%- ketqua.ten_danh_muc  %></td>
                     <td><%= ketqua.trang_thai %></td>
                     <td class="text-center"><a href="/chinhsuathongtinbaiviet/<%= ketqua.id %>" class="btn btn-primary ">Sửa</a></td>
                     <td class="text-center"><a href="#" class="btn btn-danger" style="font-size: 10px;">Hiển Thị</a></td>
                   </tr>
             <% } %>
+          <% } %>
+        </tbody>
+      </table>
         <% } %>
-   </tbody>
-  </table>
+
