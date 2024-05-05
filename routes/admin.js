@@ -147,7 +147,7 @@ router.get('/admin&quanlynewletter', (req, res) => {
   conn.query(sql, (err, rs) => {
     console.log(rs)
     res.render('admin/layouts', { content: 'quanlynewletter.ejs', dsdk: rs });
-  })
+  });
 });
 
 //duyệt liên hệ
@@ -156,15 +156,15 @@ router.get('/duyet/:id', (req, res) => {
   let sql = `update lienhe set trang_thai_duyet=N'đã duyệt'where id=${id}`
   conn.query(sql, (err, rs) => {
     res.redirect('/admin&quanlylienhe')
-  })
-})
+  });
+});
 //giao diện chỉnh sửa bài viết và bài viết cần sửa
 router.get('/chinhsuathongtinbaiviet/:id', (req, res) => {
   let id = req.params.id
   conn.query(`select * from baiviet where id = ${id}`, (err, rs) => {
-    res.render('admin/layouts', { content: 'chinhsuathongtinbaiviet.ejs', baiviet: rs[0] })
-  })
-})
+    res.render('admin/layouts', { content: 'chinhsuathongtinbaiviet.ejs', baiviet: rs[0] });
+  });
+});
 
 //cập nhật bài viết
 router.post('/capnhatbaiviet', (req, res) => {
@@ -172,23 +172,39 @@ router.post('/capnhatbaiviet', (req, res) => {
   let id = req.body.id
   let sql = `update baiviet set tieu_de='${req.body.tieude}', noi_dung='${req.body.noidung}', tac_gia='${req.body.tacgia}',ngay_dang='${req.body.ngaydang}', trang_thai='${req.body.trangthai}', hinh_anh="/images/"'${req.body.hinhanh}'where id=${id}`;
   conn.query(sql, (err, rs) => {
-    res.redirect('/admin&managerpost')
-  })
-})
+    res.redirect('/admin&managerpost');
+  });
+});
 
 //giao diện thêm bài viết
 router.get('/thembaiviet',(req,res)=>{
     res.render('admin/layouts',{content: 'thembaiviet.ejs'})
-  })
+  });
 
 //thêm bài viết
 router.post('/capnhatbaivietmoi',(req,res)=>{
-  let id = (`select id from danhmucbaiviet where ten_danh_muc=N'${req.body.chude}'`)
-  console.log(id)
+  let id = (`select id from danhmucbaiviet where ten_danh_muc=N'${req.body.chude}'`);
+  console.log(id);
   let sql= `insert into baiviet(tieu_de, noi_dung, tac_gia, ngay_dang, trang_thai, hinh_anh, danh_muc) values ('${req.body.tieude}', '${req.body.noidung}','${req.body.tacgia}', '${req.body.ngaydang}', '${req.body.trangthai}', '${req.body.hinhanh}', '${id}')`;
   conn.query(sql,(err,rs)=>{
-    res.redirect('/admin&managerpost')
-  })
-})
-
+    res.redirect('/admin&managerpost');
+  });
+});
+// chức năng update trạng thái
+router.get('/trangthai/:id',(req, res) =>{
+  let id = req.params.id;
+  let sql = `select trang_thai from baiviet where baiviet.id = ${id}`;
+  conn.query(sql, (err, result) =>{
+    if(result[0].trang_thai == 'hiển thị'){
+      conn.query(`update baiviet set baiviet.trang_thai = 'không hiển thị' where baiviet.id = ${id}`, (err) => {
+        res.redirect('/admin&managerpost');
+    });
+  }
+    else{
+      conn.query(`update baiviet set baiviet.trang_thai = 'hiển thị' where baiviet.id = ${id}`, (err) => {
+        res.redirect('/admin&managerpost')
+      });
+    }
+  });
+});
 module.exports = router;
