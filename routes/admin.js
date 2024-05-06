@@ -123,20 +123,6 @@ router.get('/searchsl', (req, res) => {
 
 // trang danh mục bài viết
 router.get('/admin&managertopicpost', function (req, res, next) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-  res.render('admin/layouts', { content: 'manager_topic_post.ejs' });
-
-  conn.query("select * from danhmucbaiviet", (err, result) => {
-    res.render('admin/layouts', { content: 'manager_topic_post.ejs', danhmuc : result });
-  });
-
-=======
-  conn.query("select * from danhmucbaiviet", (err, result) => {
-    res.render('admin/layouts', { content: 'manager_topic_post.ejs', danhmuc : result });
-  });
->>>>>>> e7cd5dd380c912e2c9a8f679e0d7fb0d0099ed6c
-=======
   if (status_login == true) {
     conn.query("select * from danhmucbaiviet", (err, result) => {
       res.render('admin/layouts', { content: 'manager_topic_post.ejs', danhmuc: result });
@@ -144,8 +130,6 @@ router.get('/admin&managertopicpost', function (req, res, next) {
   }
   else
     res.redirect('/loginadmin');
-
->>>>>>> 6fc7fbca277b451dc076e2433e7c357832bb95ec
 });
 // Xuất giao diện thêm danh mục bài viết
 router.get('/admin&add&danhmuc', function (req, res, next) {
@@ -268,33 +252,6 @@ router.get('/chinhsuathongtinbaiviet/:id', (req, res) => {
 
 //cập nhật bài viết
 router.post('/capnhatbaiviet', (req, res) => {
-<<<<<<< HEAD
-  console.log(req.body)
-  let id = req.body.id
-  let sql = `update baiviet set tieu_de='${req.body.tieude}', noi_dung='${req.body.noidung}', tac_gia='${req.body.tacgia}',ngay_dang='${req.body.ngaydang}', trang_thai='${req.body.trangthai}', hinh_anh="/images/"'${req.body.hinhanh}'where id=${id}`;
-  conn.query(sql, (err, rs) => {
-    res.redirect('/admin&managerpost')
-  });
-});
-
-//giao diện thêm bài viết
-router.get('/admin&addbaiviet', function (req, res, next) {
-  res.render('admin/layouts', { content: 'thembaiviet.ejs' });
-});
-
-//thêm bài viết
-router.post('/capnhatbaivietmoi',(req,res)=>{
-  let iddanhmuc = (`select id from danhmucbaiviet where ten_danh_muc =N'${req.body.chude}'`)
-  conn.query(iddanhmuc,(err,iddm)=>{
-    console.log(iddanhmuc)
-  let sql= `insert into baiviet(tieu_de, noi_dung, tac_gia, ngay_dang, trang_thai, hinh_anh, danh_muc) values ('${req.body.tieude}', '${req.body.noidung}','${req.body.tacgia}', '${req.body.ngaydang}', '${req.body.trangthai}', "/images/"'${req.body.hinhanh}', '${iddanhmuc}')`;
-  conn.query(sql,(err,rs)=>{
-    res.redirect('/admin&managerpost')
-  });
-})
-});
-
-=======
   if (status_login == true) {
     console.log(req.body)
     let id = req.body.id
@@ -350,5 +307,4 @@ router.get('/trangthai/:id', (req, res) => {
   else
     res.redirect('/loginadmin');
 });
->>>>>>> 6fc7fbca277b451dc076e2433e7c357832bb95ec
 module.exports = router;
