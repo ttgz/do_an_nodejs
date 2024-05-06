@@ -113,8 +113,8 @@
                 <li><a href="#" id="contactButton">Liên hệ</a></li>
                 <li>
                   <form action="/timkiem" method="get" >
-                    <select id="categoryFilter">
-                      <option value="">Tất cả danh mục</option>
+                    <select id="categoryFilter" name="option" >
+                      <option value="tatcadanhmuc">Tất cả danh mục</option>
                       <% if(locals.danhmuc){ %>
                         <% for(tendanhmuc of danhmuc){%>
                           <option value="<%- tendanhmuc.ten_danh_muc %>">
