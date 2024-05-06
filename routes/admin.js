@@ -130,7 +130,6 @@ router.get('/admin&managertopicpost', function (req, res, next) {
   }
   else
     res.redirect('/loginadmin');
-
 });
 // Xuất giao diện thêm danh mục bài viết
 router.get('/admin&add&danhmuc', function (req, res, next) {
