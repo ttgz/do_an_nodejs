@@ -2,7 +2,7 @@
 <div class="btn-group py-2">
     <a href="admin&managerpost" class="btn btn-secondary">Quản Lý bài viết</a>
     </div>
-    <form action="/capnhatbaiviet" method = "POST">
+    <form action="/savebaiviet" method = "POST">
           <div class="input-group mb-3">
             <input type="hidden" name="id" >
             <span class="input-group-text" id="basic-addon1">Hình ảnh</span>
@@ -20,25 +20,32 @@
           </div>
 
           <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">chude</span>
-            <input type="text" class="form-control" name="chude" id="chude" aria-label="Username">
+       <!--      <span class="input-group-text" id="basic-addon1">chude</span>
+            <input type="text" class="form-control" name="chude" id="chude" aria-label="Username"> -->
+            <select class="form-select" aria-label="Default select example" id="mySelect">
+              <option>Chủ đề</option>
+              <% if(locals.danhmuc){ %>
+                <% for( tendanhmuc of danhmuc) {%>
+                  <option value="<%- tendanhmuc.ten_danh_muc  %>"><%- tendanhmuc.ten_danh_muc %></option>
+                  <% } %>
+                    <% } %>
+            </select>
+            <input type="hidden" name="tendanhmuc" class="iphiddendm">
+            <script>
+              var iphidden = document.querySelector('.iphiddendm');
+              var selectdm = document.querySelector('#mySelect');
+              selectdm.onchange = () => {
+                iphidden.value =selectdm.value;
+              }
+            </script>
           </div>
         
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Nội dung</span>
             <textarea class="form-control" name="noidung" id="content" ></textarea>
           </div>
-        
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Ngày đăng</span>
-            <input type="text" class="form-control" name="ngaydang" id="ngaydang" aria-label="Username" >
-          </div>
-          <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Trạng thái</span>
-              <input type="text" class="form-control" name="trangthai" id="trangthai" aria-label="Username" >
-            </div>
           <div class="mb-3 " style="text-align:center">
-            <button type="submit" name="sbm" class="btn btn-primary px-5 py-3 " >Thêm</button>
+            <button type="submit" name="sbm" class="btn btn-primary px-5 py-3 " >Save</button>
           </div>
         </form>
   

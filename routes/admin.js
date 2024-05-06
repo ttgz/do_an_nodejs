@@ -265,23 +265,33 @@ router.post('/capnhatbaiviet', (req, res) => {
 });
 
 //giao diện thêm bài viết
-router.get('/thembaiviet', (req, res) => {
+router.get('/admin&addbaiviet', (req, res) => {
   if (status_login == true) {
-    res.render('admin/layouts', { content: 'thembaiviet.ejs' });
+    conn.query(`select ten_danh_muc from danhmucbaiviet`,(err,danhmuc)=>{
+      res.render('admin/layouts', { content: 'thembaiviet.ejs' ,danhmuc: danhmuc});
+    });
   }
   else
     res.redirect('/loginadmin');
+
 });
 
 //thêm bài viết
-router.post('/capnhatbaivietmoi', (req, res) => {
+router.post('/savebaiviet', (req, res) => {
   if (status_login == true) {
-    let id = (`select id from danhmucbaiviet where ten_danh_muc=N'${req.body.chude}'`);
-    console.log(id);
-    let sql = `insert into baiviet(tieu_de, noi_dung, tac_gia, ngay_dang, trang_thai, hinh_anh, danh_muc) values ('${req.body.tieude}', '${req.body.noidung}','${req.body.tacgia}', '${req.body.ngaydang}', '${req.body.trangthai}', '${req.body.hinhanh}', '${id}')`;
-    conn.query(sql, (err, rs) => {
-      res.redirect('/admin&managerpost');
-    });
+    let iddm
+    let id=`select id from danhmucbaiviet where ten_danh_muc like N'${req.body.tendanhmuc}'`;
+    conn.query(id,(err,iddanhmuc)=>{
+      iddm= iddanhmuc[0].id;
+      console.log(iddm);
+      
+      let sql = `INSERT INTO baiviet( tieu_de, noi_dung, tac_gia, trang_thai,hinh_anh, danh_muc ) values(N'${req.body.tieude}', N'${req.body.noidung}', N'${req.body.tacgia}',N'hiển thị','/images/${req.body.hinhanh}', '${iddanhmuc[0].id}')`;
+      conn.query(sql, () => {
+        res.redirect('/admin&managerpost');
+        }); 
+      }); 
+
+  
   }
   else
     res.redirect('/loginadmin');
