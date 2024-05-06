@@ -1,7 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var mysql = require('mysql');
-var app = require('../app');
+const mysql = require('mysql');
+const session = require('express-session');
+router.use(session({
+  secret: 'mySecretKey',
+  resave: false,
+  saveUninitialized: true
+}));
 const conn = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -14,9 +19,33 @@ router.get('/admin', function (req, res, next) {
   res.render('admin/layouts', { content: 'main.ejs' });
 });
 
+// sign out
+router.get('/admin&signout', function (req, res, next) {
+  res.redirect("/");
+});
+// fix nguoi dung bam loan xa
+router.get('/admin&edittopic/admin&managerpost', function (req, res, next) {
+  res.redirect("/admin&managerpost");
+});
+router.get('/admin&edittopic/admin&quanlylienhe', function (req, res, next) {
+  res.redirect("/admin&quanlylienhe");
+});
+router.get('/admin&edittopic/admin&quanlynewletter', function (req, res, next) {
+  res.redirect("/admin&quanlynewletter");
+});
+router.get('/chinhsuathongtinbaiviet/admin&managertopicpost', function (req, res, next) {
+  res.redirect("/admin&managertopicpost");
+});
+router.get('/chinhsuathongtinbaiviet/admin&quanlylienhe', function (req, res, next) {
+  res.redirect("/admin&quanlylienhe");
+});
+router.get('/chinhsuathongtinbaiviet/admin&quanlynewletter', function (req, res, next) {
+  res.redirect("/admin&quanlynewletter");
+});
+
+
 
 //quản lý bài viết
-
 router.get('/admin&managerpost', function (req, res, next) {
   conn.query("select baiviet.* , ten_danh_muc from baiviet inner join danhmucbaiviet on baiviet.danh_muc = danhmucbaiviet.id", (err, result) => {
     res.render('admin/layouts', { content: 'manager_post.ejs', baiviet: result });
@@ -27,12 +56,18 @@ router.get('/chinhsuathongtinbaiviet/admin&managerpost', function (req, res, nex
 });
 // quản lý danh mục bài viêt
 router.get('/admin&managertopicpost', function (req, res, next) {
+<<<<<<< HEAD
   res.render('admin/layouts', { content: 'manager_topic_post.ejs' });
 
   conn.query("select * from danhmucbaiviet", (err, result) => {
     res.render('admin/layouts', { content: 'manager_topic_post.ejs', danhmuc : result });
   });
 
+=======
+  conn.query("select * from danhmucbaiviet", (err, result) => {
+    res.render('admin/layouts', { content: 'manager_topic_post.ejs', danhmuc : result });
+  });
+>>>>>>> e7cd5dd380c912e2c9a8f679e0d7fb0d0099ed6c
 });
 // Xuất giao diện thêm danh mục bài viết
 router.get('/admin&add&danhmuc', function (req, res, next) {
@@ -53,19 +88,19 @@ router.get('/admin&edittopic/admin&managertopicpost', function (req, res, next) 
 router.get('/admin&edittopic/:id/', function (req, res, next) {
   let id = req.params.id;
   conn.query(`Select * from danhmucbaiviet where id = ${id}`, (err, result) => {
-    res.render('admin/layouts', { content: 'edit_danhmuc_bai_viet.ejs', danhmuc : result[0] ,ketqua : ''});
+    res.render('admin/layouts', { content: 'edit_danhmuc_bai_viet.ejs', danhmuc : result[0]});
   });
 });
 // cập nhật danh mục bài viết theo id
 router.post('/editdanhmuc', function (req, res, next) {
   let id = req.body.id;
   let ten_danh_muc = req.body.ten_danh_muc;
-  let ketqua = req.params.ketqua;
-  console.log(ketqua);
-  if(ketqua == true){
-  conn.query(`UPDATE danhmucbaiviet SET ten_danh_muc = N'${ten_danh_muc}' where id = ${id}`, (err) => {
-    res.redirect("/admin&managertopicpost");
-  });
+  let result = req.body.ketqua;
+  console.log(result);
+  if(result == 'hien thi'){
+    conn.query(`UPDATE danhmucbaiviet SET ten_danh_muc = N'${ten_danh_muc}' where id = ${id}`, (err) => {
+      res.redirect("/admin&managertopicpost");
+    });
   }
   else res.redirect("/admin&managertopicpost");
 });
@@ -76,6 +111,7 @@ router.get('/admin&deltopic/:id', function (req, res, next) {
     res.redirect("/admin&managertopicpost");
   });
 });
+
 //quản lý lien he 
 router.get('/admin&quanlylienhe', (req, res) => {
   let sql = "select * from lienhe where trang_thai_duyet='chờ duyệt'"

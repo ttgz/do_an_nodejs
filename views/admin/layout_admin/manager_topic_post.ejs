@@ -1,27 +1,38 @@
-
 <div class="btn-group py-2">
-    <a href="admin&managertopicpost" class="btn btn-secondary">Quản Lý danh mục bài viết</a>
-    <a href="admin&add&danhmuc" class="btn btn-success">Thêm</a>
-  </div>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Tên danh mục</th>
-        <th scope="col">Edit</th>
-        <th scope="col">Xóa</th>
-      </tr>
-    </thead>
-    <tbody>
-        <% if(locals.danhmuc){ %>
-            <% for(ketqua of danhmuc) {%>
-                <tr>
-                    <th scope="row"><%= ketqua.id %></th>
-                    <td><%- ketqua.ten_danh_muc %></td>
-                    <td class="text-center"><a href="admin&edittopic/<%= ketqua.id  %>" class="btn btn-primary ">Sửa</a></td>
-                    <td class="text-center"><a href="admin&deltopic/<%= ketqua.id  %>" class="btn btn-danger">Xóa</a></td>
-                  </tr>
-            <% } %>
+  <a href="admin&managertopicpost" class="btn btn-secondary">Quản Lý chủ đề bài viết</a>
+  <a href="admin&add&danhmuc" class="btn btn-success">Thêm</a>
+
+</div>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Tên danh mục</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Xóa</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if(locals.danhmuc){ %>
+      <% for(ketqua of danhmuc) {%>
+        <tr>
+          <th scope="row">
+            <%= ketqua.id %>
+          </th>
+          <td><%- ketqua.ten_danh_muc %></td>
+          <td class="text-center"><a href="admin&edittopic/<%= ketqua.id  %>" class="btn btn-primary ">Sửa</a></td>
+          <td class="text-center" ><a href="" onclick="resultYN(<%= ketqua.id %>)" class="btn btn-danger">Xóa</a></td>
+
+        </tr>
         <% } %>
-   </tbody>
-  </table>
+          <% } %>
+  </tbody>
+</table>
+<script>
+  function resultYN(id) {
+    if (confirm("Bạn thật sự muốn xóa danh mục này")) {
+      window.location.href = "admin&deltopic/" + id;
+    }
+  }
+
+</script>

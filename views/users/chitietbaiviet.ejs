@@ -63,8 +63,8 @@
             <% if(locals.bvlq){ %>
                 <% for (baiviet of bvlq){ %>
                     <div class="item">
-                        <a href="" class="media-left"> <img class="mw-100" src=" <%= baiviet.hinh_anh %>" alt=""></a>
-                        <p class="name_item"> <a href="">
+                        <a href="/chitietbaiviet/<%=baiviet.id%>" class="media-left_detail"> <img class="mw-100" src=" <%= baiviet.hinh_anh %>" alt=""></a>
+                        <p class="name_item" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width:100%"> <a href="/chitietbaiviet/<%=baiviet.id%>">
                                 <%= baiviet.tieu_de %>
                             </a></p>
                         <!-- <p class="prict_item" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width:50%"> <a href=""> <%= baiviet.noi_dung %></a></p> -->

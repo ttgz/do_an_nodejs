@@ -29,7 +29,17 @@ app.use('/', usersRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+<<<<<<< HEAD
 
+=======
+app.use((err, req, res, next) => {
+  if (err.status === 404) {
+    res.status(404).send('Trang bạn truy cập không tồn tại.');
+  } else {
+    next(err);  
+  }
+});
+>>>>>>> e7cd5dd380c912e2c9a8f679e0d7fb0d0099ed6c
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

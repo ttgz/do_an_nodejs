@@ -100,33 +100,35 @@
  -->
                 <li>
                   <div class="dropdown">
-                    <a href="#">Danh muc</a>
+                    <a href="#">Danh mục bài viết</a>
                     <div class="dropdown-content">
-                      <a href="#">Đời sống</a>
-                      <a href="#">Khoa học</a>
-                      <a href="#">Thể thảo</a>
+                      <% if(locals.danhmuc) {%>
+                        <% for(tendanhmuc of danhmuc){%>
+                          <a href="/danhsachbaiviet/<%= tendanhmuc.id %>"> <%= tendanhmuc.ten_danh_muc %> </a>
+                      <% } %>
+                      <% } %>
                     </div>
                   </div>
                 </li>
-
-                <!--   hết dropdow -->
-
                 <li><a href="#" id="contactButton">Liên hệ</a></li>
-                <select id="categoryFilter">
-                  <option value="">Tất cả danh mục</option>
-                  <% if(locals.danhmuc){ %>
-                    <% for(tendanhmuc of danhmuc){%>
-                      <option value="<%- tendanhmuc.ten_danh_muc %>">
-                        <%- tendanhmuc.ten_danh_muc %>
-                      </option>
-                      <% } %>
-                        <% } %>
-                </select>
-
-                <span class="search-container">
-                  <span style="text-align:end"> <input type="text" name="timkiem" value=""> </span>
-                  <button style="margin-left:-5px"><i class="fas fa-search"></i></button>
-                </span>
+                <li>
+                  <form action="/timkiem" method="get" >
+                    <select id="categoryFilter">
+                      <option value="">Tất cả danh mục</option>
+                      <% if(locals.danhmuc){ %>
+                        <% for(tendanhmuc of danhmuc){%>
+                          <option value="<%- tendanhmuc.ten_danh_muc %>">
+                            <%- tendanhmuc.ten_danh_muc %>
+                          </option>
+                          <% } %>
+                            <% } %>
+                    </select>
+                    <span class="search-container">
+                      <span style="text-align:end"> <input type="text" name="keywords"> </span>
+                      <button  id="searchButton" style="margin-left:-5px"><i class="fas fa-search"></i></button>
+                    </span>
+                  </form>
+                </li>
               </ul>
             </div>
           </div>
