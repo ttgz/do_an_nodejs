@@ -16,6 +16,7 @@ const conn = mysql.createConnection({
 conn.connect();
 var status_login = false
 /* GET home page. */
+
 //login admin
 router.get('/loginadmin', (req, res) => {
   if (status_login == false)
@@ -145,6 +146,7 @@ router.post('/add&danhmuc', function (req, res, next) {
   if (status_login == true) {
     let ten_danh_muc = req.body.tendanhmuc;
     conn.query(`Insert into danhmucbaiviet (ten_danh_muc) values(N'${ten_danh_muc}')`, (err) => {
+      console.log("Them danh muc thanh cong!")
       res.redirect("/admin&managertopicpost");
     });
   }
@@ -179,6 +181,7 @@ router.post('/editdanhmuc', function (req, res, next) {
     console.log(result);
     if (result == 'hien thi') {
       conn.query(`UPDATE danhmucbaiviet SET ten_danh_muc = N'${ten_danh_muc}' where id = ${id}`, (err) => {
+        console.log("cap nhat danh muc thanh cong!")
         res.redirect("/admin&managertopicpost");
       });
     }
@@ -192,6 +195,7 @@ router.get('/admin&deltopic/:id', function (req, res, next) {
   if (status_login == true) {
     let id = req.params.id;
     conn.query(`DELETE from danhmucbaiviet where id = ${id}`, (err, result) => {
+      console.log('xoa danh muc thanh cong')
       res.redirect("/admin&managertopicpost");
     });
   }
@@ -257,6 +261,7 @@ router.post('/capnhatbaiviet', (req, res) => {
     let id = req.body.id
     let sql = `update baiviet set tieu_de='${req.body.tieude}', noi_dung='${req.body.noidung}', tac_gia='${req.body.tacgia}',ngay_dang='${req.body.ngaydang}', trang_thai='${req.body.trangthai}', hinh_anh="/images/"'${req.body.hinhanh}'where id=${id}`;
     conn.query(sql, (err, rs) => {
+      console.log('cap nhat bai viet thanh cong')
       res.redirect('/admin&managerpost');
     });
   }
@@ -287,6 +292,7 @@ router.post('/savebaiviet', (req, res) => {
       
       let sql = `INSERT INTO baiviet( tieu_de, noi_dung, tac_gia, trang_thai,hinh_anh, danh_muc ) values(N'${req.body.tieude}', N'${req.body.noidung}', N'${req.body.tacgia}',N'hiển thị','/images/${req.body.hinhanh}', '${iddanhmuc[0].id}')`;
       conn.query(sql, () => {
+        console.log('them bai viet thanh cong')
         res.redirect('/admin&managerpost');
         }); 
       }); 

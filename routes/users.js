@@ -85,7 +85,7 @@ router.post('/dangki', (req, res) => {
 //danh sách bài viết theo danh mục được chọn
 router.get('/danhsachbaiviet/:id', (req, res) => {
   console.log(req.params)
-  con.query(`select * from baiviet where danh_muc = ${req.params.id}`, (err, dsbv) => {
+  con.query(`select * from baiviet where danh_muc = ${req.params.id} and trang_thai = 'hiển thị'`, (err, dsbv) => {
     con.query('select * from thongtinlienhe', (err, footer) => {
       con.query('select * from danhmucbaiviet', (err, dsdm) => {
         for (let i = 0; i < dsdm.length; i++) {
@@ -110,29 +110,32 @@ router.post('/contact', (req, res) => {
 // nút tìm kiếm
 router.get('/timkiem', (req, res) => {
   let link = req.query.keywords
-    con.query('select * from thongtinlienhe', (err, footer) => {
-      con.query('select * from danhmucbaiviet', (err, dmbv) => {
-        if (req.query.option === 'tatcadanhmuc') {
-          con.query(`SELECT baiviet.id, baiviet.tieu_de, baiviet.noi_dung, baiviet.hinh_anh FROM baiviet inner join danhmucbaiviet on baiviet.danh_muc=danhmucbaiviet.id  WHERE baiviet.tieu_de LIKE '%${link}%'`, (err, result) => {
-            if (result.length > 0) {
-              res.render('users/layout', { content: 'danhsachbaiviet.ejs', dsbv: result, footer: footer, danhmuc: dmbv })
-            }
-            else {
-              res.render('users/layout', { content: 'danhsachbaiviet.ejs', khongcobaiviet: 'Không tìm thấy bài viết liên quan', footer: footer, danhmuc: dmbv })
-            }
-          })
-        }
-        else {
-          con.query(`SELECT baiviet.id, baiviet.tieu_de, baiviet.noi_dung, baiviet.hinh_anh FROM baiviet inner join danhmucbaiviet on baiviet.danh_muc=danhmucbaiviet.id  WHERE danhmucbaiviet.ten_danh_muc='${req.query.option}' and baiviet.tieu_de LIKE '%${link}%'`, (err, result) => {
-            if (result.length > 0) {
-              res.render('users/layout', { content: 'danhsachbaiviet.ejs', dsbv: result, footer: footer, danhmuc: dmbv })
-            }
-            else {
-              res.render('users/layout', { content: 'danhsachbaiviet.ejs', khongcobaiviet: 'Không tìm thấy bài viết liên quan', footer: footer, danhmuc: dmbv })
-            }
-          })
-        }
-      })
+  con.query('select * from thongtinlienhe', (err, footer) => {
+    con.query('select * from danhmucbaiviet', (err, dmbv) => {
+      if (req.query.option === 'tatcadanhmuc') {
+        con.query(`SELECT baiviet.id, baiviet.tieu_de, baiviet.noi_dung, baiviet.hinh_anh FROM baiviet inner join danhmucbaiviet on baiviet.danh_muc=danhmucbaiviet.id  WHERE baiviet.tieu_de LIKE '%${link}%' and trang_thai = 'hiển thị'`, (err, result) => {
+          if (result.length > 0) {
+            res.render('users/layout', { content: 'danhsachbaiviet.ejs', soluongketqua: result.length ,dsbv: result, footer: footer, danhmuc: dmbv })
+          }
+          else {
+            res.render('users/layout', { content: 'danhsachbaiviet.ejs', khongcobaiviet: 'Không tìm thấy bài viết liên quan', footer: footer, danhmuc: dmbv })
+          }
+        })
+      }
+      else {
+        con.query(`SELECT baiviet.id, baiviet.tieu_de, baiviet.noi_dung, baiviet.hinh_anh FROM baiviet inner join danhmucbaiviet on baiviet.danh_muc=danhmucbaiviet.id  WHERE danhmucbaiviet.ten_danh_muc='${req.query.option}' and baiviet.tieu_de LIKE '%${link}%' and trang_thai = 'hiển thị'`, (err, result) => {
+          if (result.length > 0) {
+            res.render('users/layout', { content: 'danhsachbaiviet.ejs', dsbv: result, footer: footer, danhmuc: dmbv })
+          }
+          else {
+            res.render('users/layout', { content: 'danhsachbaiviet.ejs', khongcobaiviet: 'Không tìm thấy bài viết liên quan', footer: footer, danhmuc: dmbv })
+          }
+        })
+      }
     })
   })
+})
+
+//Đăng nhập cho người dùng
+ 
 module.exports = router;
