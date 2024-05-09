@@ -14,7 +14,8 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
+// Bỏ qua việc ghi nhật ký các yêu cầu đối với các file tĩnh
+app.use(logger('dev', { skip: function (req, res) { return res.statusCode === 304; } }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

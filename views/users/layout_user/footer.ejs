@@ -79,10 +79,22 @@
         const contact = document.getElementById('popup');
         contact.classList.add('show');
     });
-      const closeButton = document.getElementById('closeButton');
-      closeButton.addEventListener('click', () => {
+        let closeButton = document.getElementById('closeButton');
+        closeButton.addEventListener('click', () => {
         const contact = document.getElementById('popup');
         contact.classList.remove('show');
+      });
+</script>
+<script>
+        const loginButton = document.getElementById('loginButton');
+        loginButton.addEventListener('click', () => {
+        const login = document.getElementById('popupLogin');
+        login.classList.add('show');
+    });
+        let closeButtonLogin = document.getElementById('closeButtonLogin');
+        closeButtonLogin.addEventListener('click', () => {
+        const login = document.getElementById('popupLogin');
+        login.classList.remove('show');
       });
 </script>
 </body>

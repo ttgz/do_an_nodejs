@@ -1,9 +1,9 @@
 <div class="btn-group py-2 w-100">
-  <div class="input-group flex-nowrap">
+  <div class="input-group flex-nowrap w-20 ">
     <a href="admin&managerpost" class="btn btn-secondary">Quản Lý bài viết</a>
     <a href="admin&addbaiviet" class="btn btn-success">Thêm</a>
   </div>
-  <div class="input-group flex-nowrap">
+  <div class="input-group flex-nowrap w-30">
     <form action="/search" method="GET">
       <div class="input-group flex-nowrap">
         <input type="text" class="form-control" name="keywords" placeholder="Tìm kiếm">
@@ -11,18 +11,30 @@
       </div>
     </form>
   </div>
-  <div class="input-group flex-nowrap">
+  <div class="input-group flex-nowrap w-30">
+    <select class="form-select" aria-label="Default select example" id="mySelectdate">
+      <option>Thời gian</option>
+      <option value="newtime">Thời gian mới nhất</option>
+      <option value="oldtime">Thời gian cũ nhất</option>
+    </select>
+    <script>
+      document.getElementById('mySelectdate').addEventListener('change', function () {
+        window.location.href  = 'searchsldate?selectedOption=' + encodeURIComponent(this.value);
+      });
+    </script>
+  </div>
+  <div class="input-group flex-nowrap w-30">
     <select class="form-select" aria-label="Default select example" id="mySelect">
       <option>Tên chủ đề</option>
       <% if(locals.danhmuc){ %>
         <% for( tendanhmuc of danhmuc) {%>
           <option value="<%- tendanhmuc.ten_danh_muc  %>"><%- tendanhmuc.ten_danh_muc %></option>
-          <% } %>
+          <% } %> 
             <% } %>
     </select>
     <script>
       document.getElementById('mySelect').addEventListener('change', function () {
-        window.location.href  = 'searchsl?selectedOption=' + encodeURIComponent(this.value);
+        window.location.href  = 'searchsldm?selectedOption=' + encodeURIComponent(this.value);
       });
     </script>
   </div>

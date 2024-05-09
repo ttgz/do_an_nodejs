@@ -16,6 +16,7 @@ const conn = mysql.createConnection({
 conn.connect();
 var status_login = false
 /* GET home page. */
+
 //login admin
 router.get('/loginadmin', (req, res) => {
   if (status_login == false)
@@ -90,7 +91,7 @@ router.get('/search', (req, res) => {
   if (status_login == true) {
     var keywords = req.query.keywords;
     console.log(keywords);
-    let sql = `select baiviet.* , ten_danh_muc from baiviet inner join danhmucbaiviet on baiviet.danh_muc = danhmucbaiviet.id where baiviet.tieu_de like '%${keywords}%' ` + `or baiviet.tac_gia like '%${keywords}%'` + `or baiviet.ngay_dang like '%${keywords}%'`;
+    let sql = `select baiviet.* , ten_danh_muc from baiviet inner join danhmucbaiviet on baiviet.danh_muc = danhmucbaiviet.id where baiviet.tieu_de like '%${keywords}%' ` + `or baiviet.tac_gia like '%${keywords}%'`;
     conn.query(sql, (err, result) => {
       conn.query("select * from danhmucbaiviet", (err, danhmuc) => {
         if (result.length > 0) {
@@ -105,22 +106,48 @@ router.get('/search', (req, res) => {
   else
     res.redirect('/loginadmin');
 });
-// chức năng search selectoption
-router.get('/searchsl', (req, res) => {
+
+// chức năng search selectoption date
+router.get('/searchsldate', (req, res) => {
+  if (status_login == true) {
+    var option = req.query.selectedOption;
+    console.log(option);
+    if(option == 'newtime' || option =='oldtime'){
+      if(option == 'newtime'){
+        let newTime = `select baiviet.*, ten_danh_muc from baiviet inner join danhmucbaiviet on baiviet.danh_muc = danhmucbaiviet.id order by baiviet.ngay_dang desc`;
+        conn.query(newTime,(err , kqNewTime) => {
+          conn.query("select * from danhmucbaiviet", (err, danhmuc) => {
+            res.render('admin/layouts', { content: 'manager_post.ejs', baiviet: kqNewTime, danhmuc: danhmuc});
+          });
+        });
+      }else{
+        let oldtime = `select baiviet.*, ten_danh_muc from baiviet inner join danhmucbaiviet on baiviet.danh_muc = danhmucbaiviet.id order by baiviet.ngay_dang `;
+        conn.query(oldtime,(err , kqOldTime) => {
+          conn.query("select * from danhmucbaiviet", (err, danhmuc) => {
+            res.render('admin/layouts', { content: 'manager_post.ejs', baiviet: kqOldTime, danhmuc: danhmuc});
+          });
+        });
+      }
+    }
+  }
+  else
+    res.redirect('/loginadmin');
+});
+//chức năng search thep chủ đề
+router.get('/searchsldm', (req, res) => {
   if (status_login == true) {
     var option = req.query.selectedOption;
     console.log(option);
     let sql = `select baiviet.*, ten_danh_muc from baiviet inner join danhmucbaiviet on baiviet.danh_muc = danhmucbaiviet.id where danhmucbaiviet.ten_danh_muc like '%${option}%'`;
-    conn.query(sql, (err, result) => {
+      conn.query(sql, (err, result) => {
       conn.query("select * from danhmucbaiviet", (err, danhmuc) => {
-        res.render('admin/layouts', { content: 'manager_post.ejs', baiviet: result, danhmuc: danhmuc, selected: result.ten_danh_muc });
+        res.render('admin/layouts', { content: 'manager_post.ejs', baiviet: result, danhmuc: danhmuc});
       });
     });
   }
   else
     res.redirect('/loginadmin');
 });
-
 // trang danh mục bài viết
 router.get('/admin&managertopicpost', function (req, res, next) {
   if (status_login == true) {
@@ -145,6 +172,7 @@ router.post('/add&danhmuc', function (req, res, next) {
   if (status_login == true) {
     let ten_danh_muc = req.body.tendanhmuc;
     conn.query(`Insert into danhmucbaiviet (ten_danh_muc) values(N'${ten_danh_muc}')`, (err) => {
+      console.log("Them danh muc thanh cong!")
       res.redirect("/admin&managertopicpost");
     });
   }
@@ -179,6 +207,7 @@ router.post('/editdanhmuc', function (req, res, next) {
     console.log(result);
     if (result == 'hien thi') {
       conn.query(`UPDATE danhmucbaiviet SET ten_danh_muc = N'${ten_danh_muc}' where id = ${id}`, (err) => {
+        console.log("cap nhat danh muc thanh cong!")
         res.redirect("/admin&managertopicpost");
       });
     }
@@ -188,10 +217,13 @@ router.post('/editdanhmuc', function (req, res, next) {
     res.redirect('/loginadmin');
 });
 // xóa danh mục bài viết theo id
+
 router.get('/admin&deltopic/:id', function (req, res, next) {
   if (status_login == true) {
     let id = req.params.id;
-    conn.query(`DELETE from danhmucbaiviet where id = ${id}`, (err, result) => {
+    console.log(id);
+    conn.query(`DELETE from danhmucbaiviet where id = ${id}`, () => {
+      console.log('xoa danh muc thanh cong');
       res.redirect("/admin&managertopicpost");
     });
   }
@@ -257,6 +289,7 @@ router.post('/capnhatbaiviet', (req, res) => {
     let id = req.body.id
     let sql = `update baiviet set tieu_de='${req.body.tieude}', noi_dung='${req.body.noidung}', tac_gia='${req.body.tacgia}',ngay_dang='${req.body.ngaydang}', trang_thai='${req.body.trangthai}', hinh_anh="/images/"'${req.body.hinhanh}'where id=${id}`;
     conn.query(sql, (err, rs) => {
+      console.log('cap nhat bai viet thanh cong')
       res.redirect('/admin&managerpost');
     });
   }
@@ -265,23 +298,34 @@ router.post('/capnhatbaiviet', (req, res) => {
 });
 
 //giao diện thêm bài viết
-router.get('/thembaiviet', (req, res) => {
+router.get('/admin&addbaiviet', (req, res) => {
   if (status_login == true) {
-    res.render('admin/layouts', { content: 'thembaiviet.ejs' });
+    conn.query(`select ten_danh_muc from danhmucbaiviet`,(err,danhmuc)=>{
+      res.render('admin/layouts', { content: 'thembaiviet.ejs' ,danhmuc: danhmuc});
+    });
   }
   else
     res.redirect('/loginadmin');
+
 });
 
 //thêm bài viết
-router.post('/capnhatbaivietmoi', (req, res) => {
+router.post('/savebaiviet', (req, res) => {
   if (status_login == true) {
-    let id = (`select id from danhmucbaiviet where ten_danh_muc=N'${req.body.chude}'`);
-    console.log(id);
-    let sql = `insert into baiviet(tieu_de, noi_dung, tac_gia, ngay_dang, trang_thai, hinh_anh, danh_muc) values ('${req.body.tieude}', '${req.body.noidung}','${req.body.tacgia}', '${req.body.ngaydang}', '${req.body.trangthai}', '${req.body.hinhanh}', '${id}')`;
-    conn.query(sql, (err, rs) => {
-      res.redirect('/admin&managerpost');
-    });
+    let iddm
+    let id=`select id from danhmucbaiviet where ten_danh_muc like N'${req.body.tendanhmuc}'`;
+    conn.query(id,(err,iddanhmuc)=>{
+      iddm= iddanhmuc[0].id;
+      console.log(iddm);
+      
+      let sql = `INSERT INTO baiviet( tieu_de, noi_dung, tac_gia, trang_thai,hinh_anh, danh_muc ) values(N'${req.body.tieude}', N'${req.body.noidung}', N'${req.body.tacgia}',N'hiển thị','/images/${req.body.hinhanh}', '${iddanhmuc[0].id}')`;
+      conn.query(sql, () => {
+        console.log('them bai viet thanh cong')
+        res.redirect('/admin&managerpost');
+        }); 
+      }); 
+
+  
   }
   else
     res.redirect('/loginadmin');

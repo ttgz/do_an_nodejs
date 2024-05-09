@@ -11,12 +11,15 @@
               <%}%>
             <div class="single_post_content_left">
               <ul class="spost_nav">
+                <% if(locals.soluongketqua) {%>
+                <h4 style="margin-bottom: 30px;"> Đã tìm thấy <%= soluongketqua %> kết quả</h4>
+                <% } %>
                 <% if(locals.dsbv) {%>
                     <% for (baiviet of dsbv){ %>
                 <li>
                   <div class="media wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;"> <a href="/chitietbaiviet/<%= baiviet.id %>" class="media-left"> <img alt="" src="<%= baiviet.hinh_anh %>"> </a>
-                        <div class="media-body"> <strong><a href="/chitietbaiviet/<%= baiviet.id %>" class="catg_title"> <%= baiviet.tieu_de %> </a></strong> 
-                        <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 10%"> <%= baiviet.noi_dung %> </p> 
+                        <div class="media-body" style="max-width: 1000px"> <strong><a href="/chitietbaiviet/<%= baiviet.id %>" class="catg_title"> <%- baiviet.tieu_de %> </a></strong> 
+                        <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 40%"> <%- baiviet.noi_dung %> </p> 
                     </div>
                   </div>
                 </li>
