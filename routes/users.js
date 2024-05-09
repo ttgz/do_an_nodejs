@@ -107,7 +107,7 @@ router.post('/contact', (req, res) => {
     res.redirect('/')
   })
 })
-// nút tìm kiếm
+//chức năng tìm kiếm
 router.get('/timkiem', (req, res) => {
   let link = req.query.keywords
   con.query('select * from thongtinlienhe', (err, footer) => {
@@ -125,7 +125,7 @@ router.get('/timkiem', (req, res) => {
       else {
         con.query(`SELECT baiviet.id, baiviet.tieu_de, baiviet.noi_dung, baiviet.hinh_anh FROM baiviet inner join danhmucbaiviet on baiviet.danh_muc=danhmucbaiviet.id  WHERE danhmucbaiviet.ten_danh_muc='${req.query.option}' and baiviet.tieu_de LIKE '%${link}%' and trang_thai = 'hiển thị'`, (err, result) => {
           if (result.length > 0) {
-            res.render('users/layout', { content: 'danhsachbaiviet.ejs', dsbv: result, footer: footer, danhmuc: dmbv })
+            res.render('users/layout', { content: 'danhsachbaiviet.ejs', soluongketqua: result.length,dsbv: result, footer: footer, danhmuc: dmbv })
           }
           else {
             res.render('users/layout', { content: 'danhsachbaiviet.ejs', khongcobaiviet: 'Không tìm thấy bài viết liên quan', footer: footer, danhmuc: dmbv })
