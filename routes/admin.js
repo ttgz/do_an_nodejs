@@ -238,7 +238,6 @@ router.get('/admin&quanlylienhe', (req, res) => {
     conn.query(sql, (err, rs) => {
       conn.query("select * from lienhe where trang_thai_duyet='đã duyệt'", (err, resultdaduyet) => {
         res.render('admin/layouts', { content: 'quanlylienhe.ejs', dslh: rs, dslhdd: resultdaduyet });
-        console.log(rs, resultdaduyet)
       });
     });
   }
