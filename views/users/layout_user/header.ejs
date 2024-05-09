@@ -115,7 +115,7 @@
                     <div class="dropdown-content">
                       <% if(locals.danhmuc) {%>
                         <% for(tendanhmuc of danhmuc){%>
-                          <a href="/danhsachbaiviet/<%= tendanhmuc.id %>"> <%= tendanhmuc.ten_danh_muc %> </a>
+                          <a href="/danhsachbaiviet/<%= tendanhmuc.id %>"> <%- tendanhmuc.ten_danh_muc %> </a>
                       <% } %>
                       <% } %>
                     </div>
