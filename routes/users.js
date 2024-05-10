@@ -91,7 +91,7 @@ router.get('/danhsachbaiviet/:id', (req, res) => {
         for (let i = 0; i < dsdm.length; i++) {
           if (dsdm[i].id == req.params.id) {
             console.log(dsdm[i].ten_danh_muc)
-            res.render('users/layout', { content: 'danhsachbaiviet.ejs', dsbv: dsbv, footer: footer, danhmuc: dsdm, tendanhmuc: dsdm[i].ten_danh_muc })
+            res.render('users/layout', { title: dsdm[i].ten_danh_muc,content: 'danhsachbaiviet.ejs', dsbv: dsbv, footer: footer, danhmuc: dsdm, tendanhmuc: dsdm[i].ten_danh_muc })
           }
         }
       })
@@ -115,10 +115,10 @@ router.get('/timkiem', (req, res) => {
       if (req.query.option === 'tatcadanhmuc') {
         con.query(`SELECT baiviet.id, baiviet.tieu_de, baiviet.noi_dung, baiviet.hinh_anh FROM baiviet inner join danhmucbaiviet on baiviet.danh_muc=danhmucbaiviet.id  WHERE baiviet.tieu_de LIKE '%${link}%' and trang_thai = 'hiển thị'`, (err, result) => {
           if (result.length > 0) {
-            res.render('users/layout', { content: 'danhsachbaiviet.ejs', soluongketqua: result.length ,dsbv: result, footer: footer, danhmuc: dmbv })
+            res.render('users/layout', { title: 'Tìm kiếm',content: 'danhsachbaiviet.ejs', soluongketqua: result.length ,dsbv: result, footer: footer, danhmuc: dmbv })
           }
           else {
-            res.render('users/layout', { content: 'danhsachbaiviet.ejs', khongcobaiviet: 'Không tìm thấy bài viết liên quan', footer: footer, danhmuc: dmbv })
+            res.render('users/layout', { title: 'Tìm kiếm',content: 'danhsachbaiviet.ejs', khongcobaiviet: 'Không tìm thấy bài viết liên quan', footer: footer, danhmuc: dmbv })
           }
         })
       }
