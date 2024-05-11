@@ -1,0 +1,13 @@
+Tên thành viên
+ Đặng Khánh Đông
+ Nguyễn Quốc Đô
+ Nguyễn Ngọc Hoàng
+ Nguyễn Bá Kiệt
+
+Module đã sử dụng
+ Express
+ Ejs
+ Body-Parser
+ Mysql
+ 
+Link GitHub: https://github.com/ttgz/do_an_nodejs
